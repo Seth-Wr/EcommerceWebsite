@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="CSS/addProduct.css">
+    <title>Document</title>
+</head>
+<body>
+
+   <form  id='form'>
+    <div>
+        
+        <input type="file"  name="pic1" id="picture">
+        <input type="file"  name="pic2" id="picture2">
+        <input type="file"  name="pic3" id="picture3">
+        <input type="file"  name="pic4" id="picture4">
+        <img src="#" alt="Preview Uploaded Image" id="file-preview">
+        <label for="first-file-upload-btn" class="upload-image"></label>
+        
+           <input type="text" id="description" placeholder="description">
+           <select name="" id="category" placeholder="category">
+            <option value="swim_suits">Swim suits</option>
+            <option value="full_sets">Sets</option>
+            <option value="tops">Tops</option>
+            <option value="bottoms">Bottoms</option>
+           </select>
+        <button  type="submit" >add product</button>
+        <input type="number" placeholder="price" id="price">
+        <input type="text" id="brand" placeholder="brand">
+        <input type="text" id="short_description" placeholder="short description">
+        <input type="number" id="sale_price" placeholder="sale price">
+        <input type="checkbox" id="size_s" value="small">
+        <label for="size_s">small size</label>
+        <input type="checkbox" id="size_m" value="medium">
+        <label for="size_m">medium size</label>
+        <input type="checkbox" id="size_l" value="large">
+        <label for="size_l">large size</label>
+    </div>
+   </form>
+   <div id="previewContainer">
+   <div id="wrapper" class="preview">
+    
+   </div>
+   <div id="wrapper2" class="preview">
+    
+   </div>
+   <div id="wrapper3" class="preview">
+    
+   </div>
+   <div id="wrapper4" class="preview">
+    
+   </div>
+</div>
+   <div>
+    <button class="button">
+        get product
+    </button>
+   </div>
+                 
+            
+       
+     
+   
+    <script src="JS/addProduct.js"></script>
+
+</body>
+</html>

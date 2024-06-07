@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/home.css">
+    <link rel="stylesheet" href="CSS/product.css">
+    <title>Edit Product</title>
+</head>
+<body>
+    <nav class="navbar"></nav>
+    <section class="product-details">
+        <button class="delete_Btn"> delete product</button>
+        <div class="image-slider">
+            <label for="changeImg">Change Image</label>
+            <input type="file" name="" id="changeImg" class="editImgBtn">
+            
+            
+            <div class="product-images">
+               
+                <img src="#"  alt="">
+                <img src="#"  alt="">
+                <img src="#" alt="">
+                <img src="#" alt="">
+
+            </div>
+            <div class="submitBtns">
+             
+            </div>
+        </div>
+        <div class="details">
+            <h2 class="product-brand"></h2>
+            <p class="product-short-des"></p>.</p>
+            <input type="text" id="editShortDesInput"> 
+            <button class="editShortDes">edit short description</button> <br>
+            <span class="product-price"></span> <br>
+            <input type="number" id="editPriceInput">
+            <button class="editPrice">edit price</button> <br> 
+            <span class="product-actual-price"></span> <br>
+                      
+          <div class="size_Buttons"> <br>
+             
+          </div>   
+          <button class="deleteSize" value="sizes_s">delete small size</button> 
+          <button class="deleteSize" value="sizes_m">delete medium size</button> 
+          <button class="deleteSize" value="sizes_l">delete large size</button>  <br>
+          <button class="addSize" value="sizes_s">add small size</button> 
+          <button class="addSize" value="sizes_m">add medium size</button> 
+          <button class="addSize" value="sizes_l">add large size</button> 
+          
+      </div>
+
+        <div class="edit_Buttons">
+            <input type="number">
+            <button class="restock">restock</button> <br>
+            <button class="deleteSale">delete sale price</button> <br>
+            <input type="number" id="addSaleInput">
+            <button class="addSale">add sale price</button>  <br>
+            
+        </div>
+            
+        </div>
+
+
+    </section>
+    <section class="detail-des">
+        <h2 class="heading">description</h2>
+        <input type="text" id="editDesInput">
+        <button class="editDes">edit description</button> <br>
+        <p class="des"> </p>
+    </section>
+
+
+   
+
+
+    <footer></footer>
+    `<script src="JS/nav.js"></script>
+    <script src="JS/footer.js"></script>
+    <script src="JS/home.js"></script>
+    <script src="JS/editProduct.js"></script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 const express = require('express');
 const nodemailer = require('nodemailer')
-
 const dotenv = require('dotenv');
 dotenv.config();
 const stripeKey = process.env.stripeKey;
@@ -32,10 +31,12 @@ const passport_Route = require("./passport-config");
 const passport = require('passport');
 
 
+
 //custom middlewars
 const {authSeller, checkAuthenticated,checkNotAuthenticated} = require('./authSeller');
 //postgres connections
 const { pool } = require('./db');
+const { ProcessCredentials } = require('aws-sdk');
 const pgSession = require('connect-pg-simple')(session)
 const sessionSecret = process.env.sessionSecret
 const sessionName = process.env.sessionName
@@ -108,6 +109,41 @@ app.get('/seller', checkNotAuthenticated,authSeller,(req, res) =>{
     console.log(req.user)
     
 })
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: process.env.user,
+    pass: process.env.pass,
+  },
+});
+const mailOptions = (email) => {
+ return { 
+  from: {name: 'seth',
+address: process.env.user
+}, 
+to: [email],
+subject: "You made a purchase on your own Site",
+text: `Thank you for your purchase! Shipping details will be sent after item is out for delivery. Shipping to ` 
+}
+}
+async function listCharge(){
+const charges = await  stripe.events.list({ type: 'charge.succeeded'})
+console.log(charges)
+}
+
+
+const sendMail = async (transporter, mailOptions) =>{
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("email sent")
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const endpointSecret = stripeWHKey
 app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
     let event = request.body;
@@ -127,16 +163,97 @@ app.post('/webhook', express.raw({type: 'application/json'}), (request, response
         return response.sendStatus(400);
       }
     }
-  
+    let eventData 
+    let customerEmail 
+    let price 
     // Handle the event
     switch (event.type) {
       case 'charge.succeeded':
-        const chargeSuccess = event.data.object;
-        console.log(chargeSuccess.billing_details.email)
+       
+      eventData = event.data.object;
+       customerEmail = eventData.billing_details.email
+       price = parseInt(eventData.amount) /100
+        pool.query(`select payment_id from orders where payment_id = $1`, [eventData.payment_intent], (err,res) =>{
+          if(!err && !res.rows[0]){
+            console.log(eventData)
+            pool.query(`insert into orders (payment_id,stripe_user_id,shipping_address,user_email,order_price,payment_method,receipt_url,pending_payment)
+            values('${eventData.payment_intent}','${eventData.customer}','${JSON.stringify(eventData.shipping)}','${eventData.billing_details.email}','${price}',
+            '${eventData.payment_method_details.type}','${eventData.recipt_url}','${eventData.captured}')`, async(err,response) =>{
+              if(err){
+                console.log(err)
+                return
+              }
+              
+              sendMail(transporter,mailOptions(customerEmail))
+            })
+            return
+           }
+           else if(!err && res.rows[0]){
+            pool.query(`update orders set user_email = '${eventData.billing_details.email}', payment_method ='${eventData.payment_method_details.type}' ,receipt_url ='${eventData.recipt_url}',pending_payment = '${eventData.captured}',shipping_address = '${eventData.shipping}'  where payment_id = $1`,[eventData.payment_intent],(err,res) =>{
+              if(err){
+                console.log(err)
+                return
+              }
+              
+              sendMail(transporter,mailOptions(customerEmail))
+            })
+              return
+           } 
+           else(
+            console.log(err)
+           )
+        })
+      
+        break;
+        case 'checkout.session.completed':
+        
+        eventData = event.data.object;
+        console.log("session")
+        
+        price = parseInt(eventData.amount_total) /100
+        pool.query(`select payment_id from orders where payment_id = $1`, [eventData.payment_intent], async(err,res) =>{
+          if(!err && !res.rows[0]){
+            pool.query(`insert into orders (payment_id,stripe_user_id,shipping_address,order_price,products,user_email)
+            values('${eventData.payment_intent}','${eventData.customer}','${JSON.stringify(eventData.shipping_details)}','${price}','${JSON.stringify(eventData.metadata)}',$1)`,['pending'], async(err,response) =>{
+              if(err){
+                console.log(err)
+                return
+              }
+              
+                
+                
+              
+              
+            })
+           }
+           else if(!err && res.rows[0]){
+            console.log(eventData.metadata)
+            pool.query(`update orders set products = '${JSON.stringify(eventData.metadata)}' where payment_id = $1`,[eventData.payment_intent],(err,response) =>{
+              if(err){
+                console.log(err)
+                return
+              }
+              
+              
+            })
+            
+          
+           } 
+           else(
+            console.log(err)
+           )
+
+
+        })
+
+
+          
+        
         break;
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object;
-        console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+       // console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+       // console.log(paymentIntent)
         
         // Then define and call a method to handle the successful payment intent.
         // handlePaymentIntentSucceeded(paymentIntent);
@@ -154,6 +271,8 @@ app.post('/webhook', express.raw({type: 'application/json'}), (request, response
     // Return a 200 response to acknowledge receipt of the event
     response.send();
   });
+
+  
 //routes
 app.use('/create-checkout-session', checkout_Route)
 app.use('/add-product', add_Product_Route)

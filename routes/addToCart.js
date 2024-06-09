@@ -6,7 +6,7 @@ const {pool} = require("../db")
 router.put('/',async (req,res) =>{
     const productId = req.query.imgId
     const cart = new Cart(req.session.cart ? req.session.cart : {})
-    pool.query(`Select imgID, short_description, price, sale_price from products where imgID =$1 `, [productId],(err,result) =>{
+    pool.query(`Select imgID, short_description, price, sale_price,id from products where imgID =$1 `, [productId],(err,result) =>{
         if(err){
             console.log(err)
             return err

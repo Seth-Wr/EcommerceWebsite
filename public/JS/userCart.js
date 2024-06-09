@@ -178,7 +178,7 @@ checkoutBtn.addEventListener('click',() =>{
     credentials: 'include',
     body: JSON.stringify( getThumb(document.querySelectorAll('.product-thumb'))),
   }).then((res) => res.json())
-  .then((res) => window.location.href =  res.url)
+  .then((res) => window.location.href = res.url)
   })
 
 fetch('/shoppingCart').then((res) => {

@@ -122,39 +122,39 @@ const proccessData = (data) =>{
 
 
 const createSection = (imgId, imgUrl, description, price, qty,unitPrice) => {
-    const cards = new String(`
-    <div class="item">
-        
-    <div class="image">
-    <a href="product.html?imgId=${imgId}">
-    <img src="${imgUrl}" class="product-thumb" alt="">
-    </a>
-    </div>
- 
-    <div class="description">
-      <span>${description}</span>
+  const cards = new String(`
+  <div class="item">
       
-    </div>
-     
-    <div class="price_per">
-      <span>${unitPrice}</span>
-      
-    </div>
-    <div class="price">
-    <span>${price}</span>
+  <div class="image">
+  <a href="product.html?imgId=${imgId}">
+  <img src="${imgUrl}" class="product-thumb" alt="">
+  </a>
   </div>
-    <div class="quantity">
-      <button class="plus-btn" type="button" name="button">
-        <img src="/img/plus.jpg" alt="" />
-      </button>
-      <input type="number" value=${qty} class = "qtyInput" >
-      <button class="minus-btn" type="button" name="button">
-        <img src="/img/minus.jpg" alt="" />
-      </button>
-    </div>
-      <button class="deleteBtn">Delete</button>
-    `)
-    sections.push(cards)
+
+  <div class="description">
+    <span>${description}</span>
+    
+  </div>
+   
+  <div class="price_per">
+    <span>${unitPrice}</span>
+    
+  </div>
+  <div class="price">
+  <span>${price}</span>
+</div>
+  <div class="quantity">
+    <button class="plus-btn" type="button" name="button">
+      <img src="/img/plus.jpg" alt="" />
+    </button>
+    <input type="number" value=${qty} class = "qtyInput" >
+    <button class="minus-btn" type="button" name="button">
+      <img src="/img/minus.jpg" alt="" />
+    </button>
+  </div>
+    <button class="deleteBtn">Delete</button>
+  `)
+  sections.push(cards)
 
 }
 const getThumb = (element) =>{

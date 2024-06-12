@@ -4,7 +4,7 @@ const { pool } = require('../db');
 dotenv.config();
 const nodemailer = require('nodemailer')
 const stripeKey = process.env.stripeKey;
-const stripeWHKey = process.env.stripeWHKey;
+const stripeWHKey =  process.env.stripeWHKey;
 const stripe = require("stripe")(stripeKey);
 
 //router.use('/webhook', express.raw({ type: 'application/json' })); 
@@ -28,16 +28,16 @@ const transporter = nodemailer.createTransport({
   text: `Thank you for your purchase! Shipping details will be sent after item is out for delivery. Shipping to ` 
   }
   }
-  async function listCharge(){
-  const charges = await  stripe.events.list({ type: 'charge.succeeded'})
-  console.log(charges)
-  }
+
   
   
   const sendMail = async (transporter, mailOptions) =>{
     try {
       await transporter.sendMail(mailOptions);
       console.log("email sent")
+      
+      //change status of order  after email is semt to the user
+
     } catch (error) {
       console.log(error)
     }
@@ -68,14 +68,14 @@ const transporter = nodemailer.createTransport({
       // Handle the event
       switch (event.type) {
         case 'charge.succeeded':
-         
+         //when charge goes through store info in db and send confirmation email about shipping it
         eventData = event.data.object;
          customerEmail = eventData.billing_details.email
          price = parseInt(eventData.amount) /100
           pool.query(`select payment_id from orders where payment_id = $1`, [eventData.payment_intent], (err,res) =>{
             if(!err && !res.rows[0]){
               console.log(eventData)
-              pool.query(`insert into orders (payment_id,stripe_user_id,shipping_address,user_email,order_price,payment_method,receipt_url,pending_payment)
+              pool.query(`insert into orders (payment_id,stripe_user_id,shipping_address,user_email,order_price,payment_method,receipt_url,payment_made)
               values('${eventData.payment_intent}','${eventData.customer}','${JSON.stringify(eventData.shipping)}','${eventData.billing_details.email}','${price}',
               '${eventData.payment_method_details.type}','${eventData.recipt_url}','${eventData.captured}')`, async(err,response) =>{
                 if(err){
@@ -83,12 +83,19 @@ const transporter = nodemailer.createTransport({
                   return
                 }
                 
-                sendMail(transporter,mailOptions(customerEmail))
+              await  sendMail(transporter,mailOptions(customerEmail))
+             pool.query(`update orders set order_status_received = $1 where payment_id = $2`, [true, eventData.payment_intent], (err, response) => {
+                  if (err) {
+                    console.log(err);
+                    return;
+                  }
+                  console.log("order recived");
+                })
               })
               return
              }
              else if(!err && res.rows[0]){
-              pool.query(`update orders set user_email = '${eventData.billing_details.email}', payment_method ='${eventData.payment_method_details.type}' ,receipt_url ='${eventData.recipt_url}',pending_payment = '${eventData.captured}',shipping_address = '${eventData.shipping}'  where payment_id = $1`,[eventData.payment_intent],(err,res) =>{
+              pool.query(`update orders set user_email = '${eventData.billing_details.email}', payment_method ='${eventData.payment_method_details.type}' ,receipt_url ='${eventData.recipt_url}',payment_made = '${eventData.captured}',shipping_address = '${JSON.stringify(eventData.shipping)}'  where payment_id = $1`,[eventData.payment_intent],(err,res) =>{
                 if(err){
                   console.log(err)
                   return

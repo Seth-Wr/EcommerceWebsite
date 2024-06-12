@@ -25,6 +25,7 @@ const deleteQtyCart_Route = require("./routes/deleteQtyCart")
 const logout_Route = require("./routes/logout")
 const inputChangeCart_Route = require("./routes/inputChangeCart")
 const getUserSession_Route = require("./routes/getUserSession")
+const customerOrders_Route = require("./routes/customerOrders")
 const Stripe_webhooks = require("./routes/Stripe_webhooks")
 const passport_Route = require("./passport-config");
 const passport = require('passport');
@@ -105,11 +106,11 @@ app.get('/userCart', (req, res) => {
     
 app.get('/seller', checkNotAuthenticated,authSeller,(req, res) =>{
     res.sendFile(path.join(staticPath, "seller.html"));
-    console.log(req.user)
-    
-})
+    console.log(req.user)     })
 
-  
+app.get('/userOrders', (req, res) => {
+        res.sendFile(path.join(staticPath, "userOrders.html"));  })
+
 //routes
 app.use('/create-checkout-session', checkout_Route)
 app.use('/add-product', add_Product_Route)
@@ -129,7 +130,7 @@ app.use('/deleteQtyCart', deleteQtyCart_Route)
 app.use('/inputChangeCart', inputChangeCart_Route)
 app.use('/getUserSession', getUserSession_Route)
 app.use('/logout', logout_Route)
-
+app.use('/customerOrders', customerOrders_Route)
 
 
 app.listen(3000, () => {

@@ -51,8 +51,8 @@ router.post('/',async (req, res) => {
    
   const key1 = "id_" + i
   const key2 =  "name_" + i
-  const key3 =  "totalQty_" + i
-  const key4 =  "totalPrice_" + i
+  const key3 =  "Qty_" + i
+  const key4 =  "Price_" + i
   
   
       metadataObj[key1] = item.id

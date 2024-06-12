@@ -30,6 +30,7 @@ nav.innerHTML = `
         </div>
         <div id="logout"></div>
         <div id="login"></div>
+        <div id="myOrders"></div>
 
         <a href="/userCart">
         <i class="shoppingCart"></i> Shopping Cart <span class="badge"></span>
@@ -47,6 +48,12 @@ fetch('/getUserSession').then((res) =>  {
         document.getElementById('logout').innerHTML =`<button id="logoutBtn">logout</button>`
         document.getElementById('logoutBtn').addEventListener('click', ()=>{
             fetch('/logout').then((res)=>{
+                window.location.href = res.url
+            })
+        })
+        document.getElementById('myOrders').innerHTML =`<button id="ordersBtn">My Orders</button>`
+        document.getElementById('ordersBtn').addEventListener('click', ()=>{
+            fetch('/userOrders').then((res)=>{
                 window.location.href = res.url
             })
         })

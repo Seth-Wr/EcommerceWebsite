@@ -152,8 +152,7 @@ const createSection = (imgId, imgUrl, description, price, qty,unitPrice) => {
       <img src="/img/minus.jpg" alt="" />
     </button>
   </div>
-    <button class="deleteBtn">Delete</button>
-  `)
+    <button class="deleteBtn">Delete</button>`)
   sections.push(cards)
 
 }

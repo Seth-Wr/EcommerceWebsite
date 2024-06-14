@@ -47,7 +47,9 @@ const proccessData = (response) =>{
         payment_id: response.payment_id,
         order_price: response.order_price,
         date: response.date_time,
-        order_status_shipped: response.order_status_shipped
+        order_status_shipped: response.order_status_shipped,
+        email: response.user_email
+
     } 
     resolve(orderObj)    
 })
@@ -71,9 +73,9 @@ const orderCards_Query = (response) => {
 }
 
 //use the stripe id to find all orders associated with user
-const orders_Query = (stripe_id)=> {
+const orders_Query = ()=> {
     return new Promise((resolve,reject) =>{
-        pool.query(`SELECT * FROM orders WHERE stripe_user_id = $1 AND order_status_received = $2 ORDER BY date_time DESC`, [stripe_id,true],async(err,response) =>{
+        pool.query(`SELECT * FROM orders WHERE order_status_received = $1 ORDER BY date_time DESC`, [true],async(err,response) =>{
             if(err){
                 console.log("err message " + err)
                 reject(err)
@@ -84,19 +86,6 @@ const orders_Query = (stripe_id)=> {
 }
 
 
- // use session id in our records to find the stripe id created for user
-const stripe_id_Query = (member_id) => {
-    return new Promise((resvole,reject) =>{
-        pool.query(`SELECT stripe_id FROM test where member_id = $1`, [member_id],(err,result) =>{
-            if(err){
-                console.log("err message " + err)
-                reject(err)
-            }
-            const  stripe_id = result.rows[0].stripe_id;
-            resvole(stripe_id)           
-    })
-})
-}
 
 
 
@@ -107,8 +96,8 @@ router.get("/", async(req,res) =>{
         return
     }
 
-  const stripe_id = await stripe_id_Query(req.user.id)
-  const orders = await orders_Query(stripe_id)      
+  
+  const orders = await orders_Query()      
   const orderCards = await orderCards_Query(orders)
   res.status(200).send(orderCards)
   console.log("you awaited the list"+orderCards) 

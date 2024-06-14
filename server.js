@@ -3,7 +3,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const bodyParser = require("body-parser");
 const path = require('path');
 const crypto = require('crypto')
 const session = require('express-session');
@@ -26,7 +25,9 @@ const logout_Route = require("./routes/logout")
 const inputChangeCart_Route = require("./routes/inputChangeCart")
 const getUserSession_Route = require("./routes/getUserSession")
 const customerOrders_Route = require("./routes/customerOrders")
+const sellersOrders_Route = require("./routes/sellersOrders")
 const Stripe_webhooks = require("./routes/Stripe_webhooks")
+const shipOrder_Route = require("./routes/shipOrder")
 const passport_Route = require("./passport-config");
 const passport = require('passport');
 
@@ -36,7 +37,6 @@ const passport = require('passport');
 const {authSeller, checkAuthenticated,checkNotAuthenticated} = require('./authSeller');
 //postgres connections
 const { pool } = require('./db');
-const router = require('./passport-config');
 const pgSession = require('connect-pg-simple')(session)
 const sessionSecret = process.env.sessionSecret
 const sessionName = process.env.sessionName
@@ -111,6 +111,9 @@ app.get('/seller', checkNotAuthenticated,authSeller,(req, res) =>{
 app.get('/userOrders', (req, res) => {
         res.sendFile(path.join(staticPath, "userOrders.html"));  })
 
+app.get('/sellerOrders', (req, res) => {
+    res.sendFile(path.join(staticPath, "sellerOrders.html"));  })
+
 //routes
 app.use('/create-checkout-session', checkout_Route)
 app.use('/add-product', add_Product_Route)
@@ -131,6 +134,8 @@ app.use('/inputChangeCart', inputChangeCart_Route)
 app.use('/getUserSession', getUserSession_Route)
 app.use('/logout', logout_Route)
 app.use('/customerOrders', customerOrders_Route)
+app.use('/sellersOrders', sellersOrders_Route)
+app.use('/shipOrder', shipOrder_Route)
 
 
 app.listen(3000, () => {

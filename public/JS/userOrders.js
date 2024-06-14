@@ -7,7 +7,7 @@ const orders = document.getElementById("user_Orders");
 const create_Order = (shipping,payment_id,order_price,date,order_status,sections) =>{
   let shipping_status
   if(order_status == true){
-    shipping_status = "Shipped"
+    shipping_status = "Shipped" 
   }else{ shipping_status = "Pending shipment"} 
   const front = new String(`  <div class="orders">
   <span class="date">${date}</span>

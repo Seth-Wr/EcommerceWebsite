@@ -5,7 +5,7 @@ const {pool} = require("../db")
 
 
 router.put('/', async(req,res) =>{
-    const productId = req.query.imgId
+    const productId = req.query.imgId + req.query.size
     const inputQty = req.query.inputQty
     console.log(productId)
     console.log(inputQty)

@@ -7,8 +7,8 @@ const {authSeller} = require("../authSeller")
 dotenv.config()
 const bucketName = process.env.bucketName
 router.delete('/',authSeller, async(req, res) =>{
+    //delete products from 
     const imgIds = [req.query.imgId, req.query.img2Id, req.query.img3Id, req.query.img4Id]
-    console.log(imgIds)
         const query = new Promise((resolve, reject) => {
             let insertQuery = `delete from products where imgid = '${imgIds[0]}'`
             pool.query(insertQuery, async (err, response) =>{

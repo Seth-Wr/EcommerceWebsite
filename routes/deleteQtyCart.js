@@ -3,7 +3,7 @@ const Cart = require("../models/cart")
 const {pool} = require("../db")
 
 router.put('/', async(req,res) =>{
-    const productId = req.query.imgId
+    const productId = req.query.imgId + req.query.size
     console.log(productId)
     if(req.session.cart){
     const cart = new Cart(req.session.cart)

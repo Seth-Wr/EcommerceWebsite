@@ -24,9 +24,9 @@ const yes_or_no = (element) =>{
         yes.addEventListener('click', () =>{
           const parent = item.parentNode.parentNode
           const shipOrderObj = { id: parent.childNodes[13].innerHTML,
-          tracking_number: document.querySelectorAll(".tracking_Number")[i].value}
-        
-          fetch('/shipOrder',{
+          tracking_number: document.querySelectorAll(".tracking_Number")[i].value,
+        email: parent.childNodes[17].innerHTML}
+       fetch('/shipOrder',{
             method: 'put',
             headers:  {'Content-Type': 'application/json'},
             body: JSON.stringify(shipOrderObj)
@@ -34,7 +34,7 @@ const yes_or_no = (element) =>{
             if(res.status == 200){
             window,location.reload()}
             else{alert("Failed to Confirm shipment error")}
-          })  
+          })   
         })
     })
   }
@@ -83,8 +83,11 @@ const proccessData = (data) =>{
         const description = data[i]['all_Products'][x].description
         const totalPrice = data[i]['all_Products'][x].totalPrice
         const qty = data[i]['all_Products'][x].qty
-
-      const card = createSection(imgId,imgUrl,description,totalPrice,qty)
+        const size = data[i]['all_Products'][x].size
+        if(size.charAt(0) == "N"){
+          sizeText = ""
+        }else{sizeText = `<span>Size ${size}</span>`  }
+      const card = createSection(imgId,imgUrl,description,totalPrice,qty,sizeText)
       sections.push(card)
       
       }
@@ -103,7 +106,7 @@ const proccessData = (data) =>{
 
 
 
-const createSection = (imgId, imgUrl, description, totalPrice,qty) => {
+const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
   
     const cards = new String(`
     <div class="item">
@@ -121,11 +124,11 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty) => {
      
     
     <div class="price">
-    <span>${totalPrice}</span>
+    <span>Total Price: ${totalPrice}</span>
   </div>
-      <span>${qty}</span>
+      <span>Qty: ${qty}</span>
       
-    
+     ${size}
      
     `)
     return cards

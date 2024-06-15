@@ -16,14 +16,15 @@ const transporter = nodemailer.createTransport({
       pass: process.env.pass,
     },
   });
-  const mailOptions = (email) => {
+  const mailOptions = (email,tracking) => {
    return { 
     from: {name: 'seth',
   address: process.env.user
   }, 
   to: [email],
-  subject: "You made a purchase on your own Site",
-  text: `Thank you for your purchase! Shipping details will be sent after item is out for delivery. Shipping to ` 
+  subject: "Your order Shipped!!",
+  text: `Thank you for your purchase Items have been shipped Tracking info 
+  ${tracking}` 
   }
   }
 
@@ -48,6 +49,7 @@ const transporter = nodemailer.createTransport({
     const tracking_number = req.body.tracking_number || null;
     pool.query(`UPDATE orders SET order_status_shipped = $1, shipping_address = jsonb_set(shipping_address, '{tracking_number}', '"${tracking_number}"') WHERE payment_id = $2`, [true,req.body.id],(err,result) =>{
         if(!err && result.rowCount>0){
+          sendMail(transporter,mailOptions(req.body.email,req.body.tracking_number))
             console.log(result)
         res.sendStatus(200)
            

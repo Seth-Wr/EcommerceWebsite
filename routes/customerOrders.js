@@ -26,7 +26,7 @@ const proccessData = (response) =>{
     const productList = new Array  
     return new Promise(async(resolve,reject) =>{
         const productsArr = Object.keys(response.products)
-    for(let u =0;u < productsArr.length/4; u++){
+    for(let u =0;u < productsArr.length/5; u++){
         let x = u+1
         const imgid = await perOrder_Query(response.products['id_'+x])
         const getObjectParams = 
@@ -37,10 +37,10 @@ const proccessData = (response) =>{
       
           const command = new GetObjectCommand(getObjectParams);
          const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
-        const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x])
+        const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x],response.products['Size_'+x])
         productList.push(product)            
     }  
-
+    //Order obj consist of all products then pushed into a array
     const orderObj = {
         all_Products: productList,
         shipping: response.shipping_address,
@@ -60,7 +60,7 @@ const orderCards_Query = (response) => {
     return new Promise(async(resolve,reject) =>{
        const orderList = new Array
         for(let y = 0; y<response.rowCount;y++){
-      
+        
         const order = await proccessData(response.rows[y])
         orderList.push(order)
         
@@ -111,7 +111,7 @@ router.get("/", async(req,res) =>{
   const orders = await orders_Query(stripe_id)      
   const orderCards = await orderCards_Query(orders)
   res.status(200).send(orderCards)
-  console.log("you awaited the list"+orderCards) 
+   
 
 })
 

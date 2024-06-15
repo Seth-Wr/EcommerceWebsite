@@ -33,7 +33,7 @@ const processData = (data) =>{
         price.textContent = data.price
     }
  
-    createButtons(data.sizes_s,data.sizes_m,data.sizes_l)
+   createButtons(data.sizes_s,data.sizes_m,data.sizes_l)
 }
 productImages.forEach((item, i) =>{
     item.addEventListener('click', () => {
@@ -47,49 +47,81 @@ productImages.forEach((item, i) =>{
 
 
 const createButtons = (small, medium, large) =>{
-    if(small){
+    let sizeInput = false
+
+    if(small == true){
         const button = new String(`
         
-        <input type="radio" name="size" value="s" checked hidden id="s-size">
+        <input type="radio" name="size" class="radio-btn" value="S" checked hidden id="s-size">
         <label for="s-size" class="size-radio-btn">s</label>
         `)
+        sizeInput = true;
       size_Btns.push(button)
     } 
-    if(medium){
+    if(medium == true){
         const button = new String(`
-        <input type="radio" name="size" value="m" hidden id="m-size">
+        <input type="radio" name="size" class="radio-btn" value="M" hidden id="m-size">
             <label for="m-size" class="size-radio-btn">m</label>     
         `)
+        sizeInput = true;
       size_Btns.push(button)
     } 
-    if(large){
+    if(large == true){
         const button = new String(`    
-        <input type="radio" name="size" value="l" hidden id="l-size">
+        <input type="radio" name="size" class="radio-btn"value="L" hidden id="l-size">
         <label for="l-size" class="size-radio-btn">l</label>
         `)
+        sizeInput = true;
       size_Btns.push(button)
     } 
     size_Buttons.innerHTML = size_Btns.toString();
-    const sizeBtns = document.querySelectorAll('.size-radio-btn');
+    const sizeBtnsLabel = document.querySelectorAll('.size-radio-btn');
     let checkedBtn = 0;
-
-    sizeBtns.forEach((item, i) => {
+    const sizeBtns = document.querySelectorAll(".radio-btn")
+    sizeBtnsLabel.forEach((item, i) => {
     item.addEventListener('click', () => {
+        sizeBtnsLabel[checkedBtn].classList.remove('check');
         sizeBtns[checkedBtn].classList.remove('check');
         item.classList.add('check');
+        sizeBtns[i].classList.add('check');
         checkedBtn = i; 
      
     })
-})
+})    
 addToCartBtn.addEventListener('click', () => {
-    fetch('/addToCart'+myKeysValues,{
-        method: 'put',
-        headers: {'Content-Type': 'application/json'}
-       }).then((res) => res.json()).then((res) => {
-       
-        document.querySelector(".badge").textContent = res.totalQty;
+    if(sizeInput == true  && !document.querySelector(".radio-btn.check")){
+        console.log("pick a size")
+
+    }
+    else if(document.querySelectorAll(".radio-btn")  && document.querySelector(".radio-btn.check")){
+      const size =  {size: document.querySelector(".radio-btn.check").value}
+        fetch('/addToCart'+myKeysValues,{
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(size)
     
-    })
+           }).then((res) => res.json()).then((res) => {
+           
+            document.querySelector(".badge").textContent = res.totalQty;
+        
+        })  
+    }
+    else{
+        const size = {size: "NA"}
+        fetch('/addToCart'+myKeysValues,{
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(size)
+    
+           }).then((res) => res.json()).then((res) => {
+           
+            document.querySelector(".badge").textContent = res.totalQty;
+        
+        }) 
+    }
+     
+    
+   
  //  const size_input = document.querySelector(".size-radio-btn.check");
   //  console.log(size_input.textContent)
 })

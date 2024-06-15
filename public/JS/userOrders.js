@@ -34,11 +34,17 @@ const proccessData = (data) =>{
         const description = data[i]['all_Products'][x].description
         const totalPrice = data[i]['all_Products'][x].totalPrice
         const qty = data[i]['all_Products'][x].qty
+        const size = data[i]['all_Products'][x].size
+        let sizeText
+        if(size.charAt(0) == "N"){
+          sizeText = ""
+        }else{sizeText = `<span>Size ${size}</span>`  }
 
-      const card = createSection(imgId,imgUrl,description,totalPrice,qty)
+      const card = createSection(imgId,imgUrl,description,totalPrice,qty,sizeText)
       sections.push(card)
       
       }
+
      const order = create_Order(data[i].shipping,data[i].payment_id,data[i].order_price,data[i].date,data[i].order_status_shipped,sections)
      ordersList.push(order)
     }
@@ -52,7 +58,7 @@ const proccessData = (data) =>{
 
 
 
-const createSection = (imgId, imgUrl, description, totalPrice,qty) => {
+const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
   
     const cards = new String(`
     <div class="item">
@@ -70,11 +76,11 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty) => {
      
     
     <div class="price">
-    <span>${totalPrice}</span>
+    <span>Total price: ${totalPrice}</span>
   </div>
-      <span>${qty}</span>
+      <span>Qty: ${qty}</span>
       
-    
+      ${size}
      
     `)
     return cards

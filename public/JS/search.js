@@ -13,25 +13,6 @@ const processData = async(data) =>{
     }
     console.log(sections.toString());  
     section.innerHTML = sections.toString();
-    if(document.querySelectorAll(".card-btn")) {
-       const button = document.querySelectorAll(".card-btn")
-       button.forEach((item,i) =>{
-        item.addEventListener('click', () =>{
-            const urlLink = item.parentElement.childNodes[0].href
-            const myArr = urlLink.split("?");
-            const urlParams = "?" + myArr[1]
-            console.log(urlParams)
-           fetch('/addToCart'+urlParams,{
-            method: 'put',
-            headers: {'Content-Type': 'application/json'}
-           }).then((res) => res.json()).then((res) => {
-       
-                document.querySelector(".badge").textContent = res.totalQty;
-            
-            })  
-        })
-       }) 
-    }
 }
 
 
@@ -42,7 +23,7 @@ const createSection = (url,desc,brand,price,imgId) =>{
         <div class="product-image"><a href="product.html?imgId=${imgId}">
             <img src="${url}" class="product-thumb" alt="">
             </a>
-            <button class="card-btn">add to cart</button>
+           
         </div>
         <div class="product-info">
             <h2 class="product-brand">${brand}</h2>

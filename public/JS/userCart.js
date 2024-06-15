@@ -9,7 +9,11 @@ const proccessData = (data) =>{
         const price = data[i].price
         const qty = data[i].qty
         const unitPrice =data[i].unitPrice
-        createSection(imgId,imgUrl,description,price,qty,unitPrice)
+        const size = data[i].size
+        if(size.charAt(0) == "N"){
+          sizeText = ""
+        }else{sizeText = `<span>Size ${size}</span>`  }
+        createSection(imgId,imgUrl,description,price,qty,unitPrice,sizeText)
     }
     shoppingCart.innerHTML = sections.toString();
     
@@ -18,7 +22,8 @@ const proccessData = (data) =>{
       document.querySelectorAll(".deleteBtn").forEach((item,i) =>{
       item.addEventListener('click', () =>{
         const urlLink = data[i].imgId
-        const urlParams = "?imgId=" + urlLink
+        const size = data[i].size
+        const urlParams = "?imgId=" + urlLink +"&size="+size
         console.log(urlParams)
         fetch('/deleteCartItem'+urlParams,{
           method: 'delete',
@@ -36,7 +41,8 @@ const proccessData = (data) =>{
       document.querySelectorAll(".plus-btn").forEach((item,i) =>{
         item.addEventListener('click', ()=>{
           const urlLink = data[i].imgId
-         const urlParams = "?imgId=" + urlLink
+          const size = data[i].size
+          const urlParams = "?imgId=" + urlLink +"&size="+size
           fetch('/addQtyCart'+urlParams,{
             method: 'put',
             headers: {'Content-Type': 'application/json'}
@@ -59,7 +65,8 @@ const proccessData = (data) =>{
       document.querySelectorAll(".minus-btn").forEach((item,i) =>{
         item.addEventListener('click', ()=>{
           const urlLink = data[i].imgId
-         const urlParams = "?imgId=" + urlLink
+          const size = data[i].size
+          const urlParams = "?imgId=" + urlLink +"&size="+size
           fetch('/deleteQtyCart'+urlParams,{
             method: 'put',
             headers: {'Content-Type': 'application/json'}
@@ -101,7 +108,8 @@ const proccessData = (data) =>{
         item.addEventListener('change', () =>{
           console.log("item value" + item.value)
           const urlLink = data[i].imgId
-         const urlParams = "?imgId=" + urlLink
+          const size = data[i].size
+          const urlParams = "?imgId=" + urlLink +"&size="+size
           fetch('/inputChangeCart'+urlParams+"&inputQty="+item.value,{
             method: 'put',
             headers: {'Content-Type': 'application/json'}
@@ -121,7 +129,7 @@ const proccessData = (data) =>{
 }
 
 
-const createSection = (imgId, imgUrl, description, price, qty,unitPrice) => {
+const createSection = (imgId, imgUrl, description, price, qty,unitPrice,size) => {
   const cards = new String(`
   <div class="item">
       
@@ -152,7 +160,9 @@ const createSection = (imgId, imgUrl, description, price, qty,unitPrice) => {
       <img src="/img/minus.jpg" alt="" />
     </button>
   </div>
-    <button class="deleteBtn">Delete</button>`)
+  ${size}
+    <button class="deleteBtn">Delete</button>
+    </div>`)
   sections.push(cards)
 
 }

@@ -26,7 +26,7 @@ const proccessData = (response) =>{
     const productList = new Array  
     return new Promise(async(resolve,reject) =>{
         const productsArr = Object.keys(response.products)
-    for(let u =0;u < productsArr.length/4; u++){
+    for(let u =0;u < productsArr.length/5; u++){
         let x = u+1
         const imgid = await perOrder_Query(response.products['id_'+x])
         const getObjectParams = 

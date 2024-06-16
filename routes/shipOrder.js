@@ -43,14 +43,14 @@ const transporter = nodemailer.createTransport({
   }
 
   router.put('/',(req,res) =>{
-    if(!req.body.id){
+    try {
+      if(!req.body.id){
         res.sendStatus(400)
     }
     const tracking_number = req.body.tracking_number || null;
     pool.query(`UPDATE orders SET order_status_shipped = $1, shipping_address = jsonb_set(shipping_address, '{tracking_number}', '"${tracking_number}"') WHERE payment_id = $2`, [true,req.body.id],(err,result) =>{
         if(!err && result.rowCount>0){
           sendMail(transporter,mailOptions(req.body.email,req.body.tracking_number))
-            console.log(result)
         res.sendStatus(200)
            
         }else{
@@ -60,6 +60,10 @@ const transporter = nodemailer.createTransport({
         }
         
     })
+    } catch (error) {
+      console.error
+    }
+    
     
   })
   

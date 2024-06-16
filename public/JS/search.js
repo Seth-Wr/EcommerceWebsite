@@ -38,6 +38,7 @@ const startFunction = () =>{
     fetch('/products'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
+    .catch(err => alert("Unexpected Error"));
     };
     
 

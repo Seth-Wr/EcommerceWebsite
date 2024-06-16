@@ -8,7 +8,8 @@ const stripe = require('stripe')(stripeKey);
 
 
 router.post('/',async (req, res) => {
-  // first map is for the line items we will pass to stripe the second is for the metadata we will pass to stripe
+  try {
+    // first map is for the line items we will pass to stripe the second is for the metadata we will pass to stripe
   const userCart = new cart(req.session.cart)
   const checkoutCart = new Map()
   const metadata_Map = new Map()
@@ -109,7 +110,6 @@ const data = await metadataFun()
       }})
     }
     else{
-      console.log(" customer exists")
       const session = await stripe.checkout.sessions.create({ 
         payment_method_types: ["card","afterpay_clearpay","amazon_pay","cashapp","klarna"],
         shipping_address_collection:{
@@ -126,8 +126,6 @@ const data = await metadataFun()
         
       });
 
-      
-      console.log(session.metadata)
       res.json({url: session.url}); 
     return }
 }
@@ -144,14 +142,15 @@ else {
       mode: 'payment',
       success_url: `http://localhost:3000/success.html`,
       cancel_url: `http://localhost:3000/userCart.html`,
-      metadata: data,
-    
-      
+      metadata: data,      
     });
     
     res.json({url: session.url}); 
-
-}
+} 
+  } catch (error) {
+    console.error(error)
+  }
+ 
 });
 
 

@@ -97,4 +97,4 @@ fetch('/customerOrders').then((res) => {
     else{
         console.log("failed request")
     }
-}) 
+}).catch(err => alert("Unexpected Error")); 

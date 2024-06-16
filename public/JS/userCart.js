@@ -41,7 +41,7 @@ const proccessData = (data) =>{
           if(res.status == 201){
             window.location.reload();
           }
-        })
+        }).catch(err => alert("Unexpected Error"));
 
       })        
       })
@@ -64,7 +64,7 @@ const proccessData = (data) =>{
               document.querySelector(".badge").textContent ++;
               document.querySelector('.total-price').textContent = newTotalPrice
          } 
-        })
+        }).catch(err => alert("Unexpected Error"));
         })
       })
 
@@ -98,7 +98,7 @@ const proccessData = (data) =>{
                 })
               } 
             }
-          })
+          }).catch(err => alert("Unexpected Error"));
         })
       })
 
@@ -130,7 +130,7 @@ const proccessData = (data) =>{
                 document.querySelector('.total-price').textContent = res.totalPrice        
               })
             }
-          })
+          }).catch(err => alert("Unexpected Error"));
           })
       })
     }
@@ -199,7 +199,7 @@ checkoutBtn.addEventListener('click',() =>{
     body: JSON.stringify( getThumb(document.querySelectorAll('.product-thumb'))),
   }).then((res) => res.json())
   .then((res) => window.location.href = res.url)
-  })
+  .catch(err => alert("Unexpected Error")); })
 
 fetch('/shoppingCart').then((res) => {
     if(res.status == 200){
@@ -210,4 +210,4 @@ fetch('/shoppingCart').then((res) => {
     else{
         console.log("failed request")
     }
-}) 
+}).catch(err => alert("Unexpected Error")); 

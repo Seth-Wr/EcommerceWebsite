@@ -104,7 +104,7 @@ addToCartBtn.addEventListener('click', () => {
            
             document.querySelector(".badge").textContent = res.totalQty;
         
-        })  
+        }).catch(err => alert("Unexpected Error"));  
     }
     else{
         const size = {size: "NA"}
@@ -117,7 +117,7 @@ addToCartBtn.addEventListener('click', () => {
            
             document.querySelector(".badge").textContent = res.totalQty;
         
-        }) 
+        }).catch(err => alert("Unexpected Error")); 
     }
      
     
@@ -132,6 +132,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
+    .catch(err => alert("Unexpected Error"));
     };
     
 

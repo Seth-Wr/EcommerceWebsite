@@ -12,7 +12,7 @@ const processData = (data) =>{
             const category= data[i].category
             createSection(url,desc,brand,price,imgId,category);
     }
-    console.log(sections.toString());  
+      
     section.innerHTML = sections.toString();
 }
 
@@ -40,7 +40,7 @@ const startFunction = () =>{
     fetch('/allproducts')
     .then((res) => res.json())
     .then((res) => processData(res))
-    };
+    .catch(err => alert("Unexpected Error"));};
     
 
     

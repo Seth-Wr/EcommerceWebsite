@@ -9,9 +9,7 @@ pool.query(insertQuery, (err, response) =>{
     if(!err){
         pool.query(`insert into usercart (userid) select member_id from test where emails = $1`, [req.body.email], (error,results) =>{
             if(!error){
-                
                 res.sendStatus(201)
-                console.log("user added")
             }else(
                 console.log(error.messages)
             )
@@ -26,7 +24,7 @@ pool.query(insertQuery, (err, response) =>{
 
 
     } catch (error) {
-        
+        console.error(error)
     }
 })
 module.exports = router;

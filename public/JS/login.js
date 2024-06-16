@@ -16,5 +16,5 @@ const sendData = (path, data) => {
         body: JSON.stringify(data)
     }).then((res) =>{
        window.location.href = (res.url)
-    })
+    }).catch(err => alert("Unexpected Error"));
 }

@@ -3,7 +3,8 @@ const Cart = require("../models/cart")
 const {pool} = require("../db")
 
 router.put('/', async(req,res) =>{
-    //img id and size are passed in fecth request when adding to cart
+    try {
+         //img id and size are passed in fecth request when adding to cart
     const productId = req.query.imgId + req.query.size
     
     if(req.session.cart){
@@ -18,7 +19,6 @@ router.put('/', async(req,res) =>{
         const cartJson = JSON.stringify(cart)
         pool.query(`update userCart set cart = ('${cartJson}') where userid = '${req.user.id}'`, (error,response) =>{
             if(!error){
-                console.log(response)
                 res.status(201).send()
             }
             else{
@@ -33,6 +33,10 @@ router.put('/', async(req,res) =>{
     }else{
         res.sendStatus(400)
     }
+    } catch (error) {
+     console.error(error)   
+    }
+   
 })
 
 

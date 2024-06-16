@@ -90,7 +90,7 @@ const orders_Query = ()=> {
 
 
 router.get("/", async(req,res) =>{  
-   
+   try {
     if(req.user == null || !req.user){
         res.sendStatus(402)
         return
@@ -100,7 +100,11 @@ router.get("/", async(req,res) =>{
   const orders = await orders_Query()      
   const orderCards = await orderCards_Query(orders)
   res.status(200).send(orderCards)
-  console.log("you awaited the list"+orderCards) 
+  
+   } catch (error) {
+    console.error(error)
+   }
+ 
 
 })
 

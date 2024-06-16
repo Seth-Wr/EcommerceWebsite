@@ -14,7 +14,8 @@ const upload = multer({storage: storage});
 
 
 router.post('/', authSeller,upload.array('files'),async(req, res) =>{
-    let imageNames = new Array; 
+    try {
+        let imageNames = new Array; 
 
     for(i = 0; i<req.files.length; i++){
     req.files.buffer
@@ -43,14 +44,18 @@ router.post('/', authSeller,upload.array('files'),async(req, res) =>{
                             console.log(err.message)
                         }
                 })
-                console.log(req.body)
-                console.log(imageNames)
+               
                 res.sendStatus(201)
             }
             else{
                 console.log(err.message)
             }
     })
+        
+    } catch (error) {
+        console.error(error)
+    }
+    
     
 })
 

@@ -10,18 +10,23 @@ dotenv.config()
 const bucketName = process.env.bucketName
 
 router.put('/',authSeller, upload.single('file'),async(req,res) =>{
-    const imgId = req.query.imgId
-    const params = {
-        Bucket: bucketName,
-        Key: imgId,
-        Body: req.file.buffer,
-        ContentType: req.file.mimetype,
-        
-         
+    try {
+        const imgId = req.query.imgId
+        const params = {
+            Bucket: bucketName,
+            Key: imgId,
+            Body: req.file.buffer,
+            ContentType: req.file.mimetype,
+            
+             
+        }
+        const command = new PutObjectCommand(params)
+        await s3.send(command)
+        res.sendStatus(201)
+    } catch (error) {
+        console.error(error)
     }
-    const command = new PutObjectCommand(params)
-    await s3.send(command)
-    res.sendStatus(201)
+  
 
 })
 

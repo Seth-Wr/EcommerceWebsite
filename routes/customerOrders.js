@@ -101,16 +101,21 @@ const stripe_id_Query = (member_id) => {
 
 
 router.get("/", async(req,res) =>{  
-   
-    if(req.user == null || !req.user){
-        res.sendStatus(402)
-        return
+    try {
+        if(req.user == null || !req.user){
+            res.sendStatus(402)
+            return
+        }
+    
+      const stripe_id = await stripe_id_Query(req.user.id)
+      const orders = await orders_Query(stripe_id)      
+      const orderCards = await orderCards_Query(orders)
+      res.status(200).send(orderCards)
+       
+    
+    } catch (error) {
+        console.error(error)
     }
-
-  const stripe_id = await stripe_id_Query(req.user.id)
-  const orders = await orders_Query(stripe_id)      
-  const orderCards = await orderCards_Query(orders)
-  res.status(200).send(orderCards)
    
 
 })

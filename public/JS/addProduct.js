@@ -3,7 +3,6 @@ const fileInput2 = document.getElementById('picture2');
 const fileInput3 = document.getElementById('picture3');
 const fileInput4 = document.getElementById('picture4');
 const formInput = document.getElementById('form');
-const getBtn = document.querySelector('.button');
 const WIDTH = 400;
 const wrapper = document.getElementById('wrapper')
 const wrapper2 = document.getElementById('wrapper2')
@@ -15,7 +14,7 @@ let new_Blob3;
 let new_Blob4;
 
 
-
+//show resized photos before uploading
 const previewPhoto = () => {
     const file = fileInput.files;
     if (file) {
@@ -46,18 +45,7 @@ const previewPhoto = () => {
                         wrapper.appendChild(new_Img);
                         
                     },"image/jpeg", 90);
-                    
-                
-                    
-                 
-                  
-                }    
-
-        }
-       
-        
-    }
-} 
+                }  }  }  }
 
 const previewPhoto2 = () => {
     const file = fileInput2.files;
@@ -89,19 +77,7 @@ const previewPhoto2 = () => {
                         wrapper2.appendChild(new_Img);
                         
                     },"image/jpeg", 90);
-                    
-                
-                    
-                 
-                  
-                }    
-
-        }
-       
-        
-    }
-} 
-
+                }  }  }  }
 const previewPhoto3 = () => {
     const file = fileInput3.files;
     if (file) {
@@ -132,18 +108,8 @@ const previewPhoto3 = () => {
                         wrapper3.appendChild(new_Img);
                         
                     },"image/jpeg", 90);
-                    
-                
-                    
-                 
-                  
-                }    
-
-        }
-       
-        
-    }
-} 
+                } } } }
+             
 
 const previewPhoto4 = () => {
     const file = fileInput4.files;
@@ -175,18 +141,7 @@ const previewPhoto4 = () => {
                         wrapper4.appendChild(new_Img);
                         
                     },"image/jpeg", 90);
-                    
-                
-                    
-                 
-                  
-                }    
-
-        }
-       
-        
-    }
-} 
+                } } } }  
 
 fileInput.addEventListener('change', previewPhoto);
 fileInput2.addEventListener('change', previewPhoto2);
@@ -240,9 +195,8 @@ window.onload = formInput.addEventListener
         method: 'post',
         body: formData,
         
-        }).then((res) => console.log(res))
-        .then((res) => window.location.reload())
-        .catch((err) => ("Error occured", err));
+        }).then((res) => window.location.reload())
+        .catch(err => alert("Unexpected Error"));
         
 
      
@@ -250,14 +204,5 @@ window.onload = formInput.addEventListener
          })
 
 
-getBtn.addEventListener('click', () => {
-    fetch('/products')
-    .then((res) => console.log(res))
-}); 
 
-const startFunction = () =>{
-fetch('/products')
-.then((res) => res.json())
-.then((res) => console.log(res))
-};
 

@@ -69,10 +69,9 @@ const processData = (data) =>{
             window.location.replace("http://localhost:3000/seller")
         }
         else{
-            console.log(res)
-            console.log("failed")
+            
         }
-        })
+        }).catch(err => alert("Unexpected Error"));
        
     })
 
@@ -88,7 +87,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        })   
+        }).catch(err => alert("Unexpected Error"));
         
          
     })
@@ -103,7 +102,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        })
+        }).catch(err => alert("Unexpected Error"));
         
     })
     editPrice.addEventListener('click', () =>{
@@ -117,7 +116,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        })
+        }).catch(err => alert("Unexpected Error"));
         
     })
 
@@ -163,7 +162,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        })
+        }).catch(err => alert("Unexpected Error"));
             })
         })
         addSizeBtn.forEach((item,i)=>{
@@ -178,7 +177,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        })
+        }).catch(err => alert("Unexpected Error"));
             })
         })
         editImgBtn.addEventListener('change', previewPhoto);
@@ -241,7 +240,7 @@ const previewPhoto = () => {
                             if (res.status == 201){
                                 window.location.reload()
                             }
-                        })
+                        }).catch(err => alert("Unexpected Error"));
                             
                         })
                         cancelBtn.addEventListener('click', () =>{
@@ -306,6 +305,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
+    .catch(err => alert("Unexpected Error"));
     };
     
 

@@ -46,19 +46,20 @@ const getUserSession = async() =>{
 fetch('/getUserSession').then((res) =>  {
     if(res.status == 204){
         window.location.replace("/seller")
+        return
     }
     if(res.status == 202){
         document.getElementById('logout').innerHTML =`<button id="logoutBtn">logout</button>`
         document.getElementById('logoutBtn').addEventListener('click', ()=>{
             fetch('/logout').then((res)=>{
                 window.location.href = res.url
-            })
+            }).catch(err => alert("Unexpected Error"));
         })
         document.getElementById('myOrders').innerHTML =`<button id="ordersBtn">My Orders</button>`
         document.getElementById('ordersBtn').addEventListener('click', ()=>{
             fetch('/userOrders').then((res)=>{
                 window.location.href = res.url
-            })
+            }).catch(err => alert("Unexpected Error"));
         })
 
    }else{
@@ -66,7 +67,7 @@ fetch('/getUserSession').then((res) =>  {
             document.getElementById('loginBtn').addEventListener('click', ()=>{
                 fetch('/login').then((res)=>{
                     window.location.href = res.url
-                })
+                }).catch(err => alert("Unexpected Error"));
             })
     }  
     
@@ -79,7 +80,7 @@ fetch('/getUserSession').then((res) =>  {
             document.querySelector(".total-price").textContent = res.totalPrice;
         }
         
-    })
+    }).catch(err => alert("Unexpected Error"));
 })
 }
 

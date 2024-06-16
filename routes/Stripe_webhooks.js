@@ -45,6 +45,7 @@ const transporter = nodemailer.createTransport({
   
   const endpointSecret = stripeWHKey
   router.post('/', (request, response) => {
+    try {
       let event = request.body;
       // Only verify the event if you have an endpoint secret defined.
       // Otherwise use the basic event deserialized with JSON.parse
@@ -74,7 +75,6 @@ const transporter = nodemailer.createTransport({
          price = parseInt(eventData.amount) /100
           pool.query(`select payment_id from orders where payment_id = $1`, [eventData.payment_intent], (err,res) =>{
             if(!err && !res.rows[0]){
-              console.log(eventData)
               pool.query(`insert into orders (payment_id,stripe_user_id,shipping_address,user_email,order_price,payment_method,receipt_url,payment_made)
               values('${eventData.payment_intent}','${eventData.customer}','${JSON.stringify(eventData.shipping)}','${eventData.billing_details.email}','${price}',
               '${eventData.payment_method_details.type}','${eventData.recipt_url}','${eventData.captured}')`, async(err,response) =>{
@@ -89,7 +89,6 @@ const transporter = nodemailer.createTransport({
                     console.log(err);
                     return;
                   }
-                  console.log("order recived");
                 })
               })
               return
@@ -112,9 +111,7 @@ const transporter = nodemailer.createTransport({
         
           break;
           case 'checkout.session.completed':
-          
           eventData = event.data.object;
-          console.log("session")
           
           price = parseInt(eventData.amount_total) /100
           pool.query(`select payment_id from orders where payment_id = $1`, [eventData.payment_intent], async(err,res) =>{
@@ -125,15 +122,9 @@ const transporter = nodemailer.createTransport({
                   console.log(err)
                   return
                 }
-                
-                  
-                  
-                
-                
               })
              }
              else if(!err && res.rows[0]){
-              console.log(eventData.metadata)
               pool.query(`update orders set products = '${JSON.stringify(eventData.metadata)}' where payment_id = $1`,[eventData.payment_intent],(err,response) =>{
                 if(err){
                   console.log(err)
@@ -173,6 +164,10 @@ const transporter = nodemailer.createTransport({
     
       // Return a 200 response to acknowledge receipt of the event
       response.sendStatus(200);
+    } catch (error) {
+      console.error(error)
+    }
+     
     });
   
 module.exports = router;

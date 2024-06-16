@@ -4,7 +4,8 @@ const {pool} = require("../db")
 
 
 router.put('/',async (req,res) =>{
-    // we will verify that cart item is in our records before adding it
+    try {
+         // we will verify that cart item is in our records before adding it
     const productId = req.query.imgId
     //if no cart in session we will pass a undefined object
     const cart = new Cart(req.session.cart ? req.session.cart : {})
@@ -21,7 +22,6 @@ router.put('/',async (req,res) =>{
             const cartJson = JSON.stringify(cart)
             pool.query(`update userCart set cart = ('${cartJson}') where userid = '${req.user.id}'`, (error,response) =>{
                 if(!error){
-                    console.log(response)
                     res.send(cart)
                 }
                 else{
@@ -33,6 +33,10 @@ router.put('/',async (req,res) =>{
         }
        
     })
+    } catch (error) {
+        console.error(error)
+    }
+   
 })
 
 module.exports = router;

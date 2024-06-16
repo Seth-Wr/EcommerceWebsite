@@ -1,7 +1,4 @@
 
-
-
-
 const loader = document.querySelector('.loader');
 const submitBtn = document.querySelector('.submit-btn');
 const name1 = document.querySelector('#name');
@@ -65,5 +62,5 @@ const sendData = (path, data) => {
         if(res.status == 201){
             window.location.href = ('/login')
         }
-    })
+    }).catch(err => alert("Unexpected Error"));
 }

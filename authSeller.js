@@ -6,7 +6,7 @@ function authSeller(req,res,next){
                 
                 return next();
             }else{
-               return res.send("not allowed")
+               return res.send("Not allowed in Seller Portal on a non seller account")
     
 }
 }

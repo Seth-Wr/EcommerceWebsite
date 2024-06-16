@@ -211,10 +211,20 @@ const display_Stripe_Fraud = async()=>{
 }
 
 const setInterval_Payment = () =>{
+  try {
     setInterval(display_Stripe_Events,900 * 1000)
+  } catch (error) {
+    console.error(error)
+  }
+   
 }
 const setInterval_Fraud = () =>{
+  try {
     setInterval(display_Stripe_Fraud,86400 *1000)
+  } catch (error) {
+    console.error(error)
+  }
+   
 }
 
 

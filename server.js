@@ -119,14 +119,14 @@ app.get('/sellerOrders',  checkNotAuthenticated,authSeller,(req, res) => {
 
 //routes
 app.use('/create-checkout-session', checkout_Route)
-app.use('/add-product', add_Product_Route)
+app.use('/add-product', authSeller,add_Product_Route)
 app.use('/products', products_Route)
 app.use('/product_page', product_Page_Route)
 app.use('/allproducts', all_Products_Route)
-app.use('/delete_product', delete_Product_Route)
+app.use('/delete_product', authSeller,delete_Product_Route)
 app.use('/signup', signup_Route)
-app.use('/editText', editText_Route)
-app.use('/editProductImg', editProductImg_Route)
+app.use('/editText', authSeller,editText_Route)
+app.use('/editProductImg',authSeller, editProductImg_Route)
 app.use('/user_login', passport_Route)
 app.use('/addToCart', addToCart_Route)
 app.use('/shoppingCart', shoppingCart_Route)
@@ -137,8 +137,8 @@ app.use('/inputChangeCart', inputChangeCart_Route)
 app.use('/getUserSession', getUserSession_Route)
 app.use('/logout', logout_Route)
 app.use('/customerOrders', customerOrders_Route)
-app.use('/sellersOrders', sellersOrders_Route)
-app.use('/shipOrder', shipOrder_Route)
+app.use('/sellersOrders', authSeller,sellersOrders_Route)
+app.use('/shipOrder',authSeller, shipOrder_Route)
 
 
 

@@ -4,7 +4,7 @@ const stripe = require('stripe')(process.env.stripeKey)
 const { pool } = require('./db');
 const nodemailer = require('nodemailer')
 
-
+// This page is a function that sets a interval to make sure all the stripe webhooks were caught and if they werent caught we will proccess them here
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',

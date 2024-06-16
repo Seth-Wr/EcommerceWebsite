@@ -7,14 +7,11 @@ const bcrypt = require("bcrypt");
 
 passport.use(
     new LocalStrategy(function verify(username,password, done) {
-        console.log(username)
-        console.log(password)
         try {
             pool.query( `SELECT * FROM test WHERE emails = $1`, [username],async (err, results)=>{
                 if (err){
                     throw err;
                 }
-                console.log(results.rows);
 
                 if(results.rows.length > 0){
                     const user = results.rows[0];

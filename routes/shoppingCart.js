@@ -26,7 +26,7 @@ router.get("/", async(req,res) =>{
       }
           const command = new GetObjectCommand(getObjectParams);
          const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
-         const product = new cartProductCard(cartArr[i].item.imgid,productUrl,cartArr[i].item.short_description,cartArr[i].price,cartArr[i].qty,cartArr[i].item.price,cartArr[i].size);
+         const product = new cartProductCard(cartArr[i].item.imgid,productUrl,cartArr[i].item.short_description,cartArr[i].price,cartArr[i].qty,cartArr[i].item.price,cartArr[i].size,cartArr[i].item.sale_price);
          
          cartList.push(product)
             

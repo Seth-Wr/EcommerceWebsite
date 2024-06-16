@@ -31,7 +31,7 @@ router.post('/', authSeller,upload.array('files'),async(req, res) =>{
     const command = new PutObjectCommand(params)
     await s3.send(command)
 }
-  let insertQuery = `insert into products(imgID, description, brand, price,category,short_description,sale_price,sizes_s,sizes_m,sizes_l)values('${imageNames[0]}','${req.body.description}', '${req.body.brand}', '${req.body.price}','${req.body.category}','${req.body.short_description}','${req.body.sale_price}','${req.body.sizes_s}','${req.body.sizes_m}','${req.body.sizes_l}')`
+  let insertQuery = `insert into products(imgID, description, brand, price,category,short_description,sizes_s,sizes_m,sizes_l)values('${imageNames[0]}','${req.body.description}', '${req.body.brand}', '${req.body.price}','${req.body.category}','${req.body.short_description}','${req.body.sizes_s}','${req.body.sizes_m}','${req.body.sizes_l}')`
     pool.query(insertQuery, (err, response) =>{
             if(!err){
                 let insertQuery = `insert into product_pictures(img1ID, img2ID, img3ID, img4ID)values('${imageNames[0]}','${imageNames[1]}', '${imageNames[2]}', '${imageNames[3]}')`

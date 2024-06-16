@@ -172,7 +172,7 @@ const transporter = nodemailer.createTransport({
       }
     
       // Return a 200 response to acknowledge receipt of the event
-      response.send();
+      response.sendStatus(200);
     });
   
 module.exports = router;

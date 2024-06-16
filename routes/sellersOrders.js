@@ -37,7 +37,7 @@ const proccessData = (response) =>{
       
           const command = new GetObjectCommand(getObjectParams);
          const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
-        const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x])
+        const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x],response.products['Size_'+x])
         productList.push(product)            
     }  
 

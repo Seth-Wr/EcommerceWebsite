@@ -16,9 +16,10 @@ const editShortDesInput = document.getElementById("editShortDesInput")
 const editShortDes = document.querySelector(".editShortDes")
 const editPriceInput = document.getElementById("editPriceInput")
 const editPrice = document.querySelector(".editPrice")
-const deleteSale = document.querySelector(".deleteSale")
-const addSaleInput = document.getElementById("addSaleInput")
-const addSale = document.querySelector(".addSale")
+//feature not avaible yet
+//const deleteSale = document.querySelector(".deleteSale")
+//const addSaleInput = document.getElementById("addSaleInput")
+//const addSale = document.querySelector(".addSale")
 const editDesInput = document.getElementById("editDesInput")
 const editDes = document.querySelector(".editDes")
 const deleteSizeBtn = document.querySelectorAll(".deleteSize")
@@ -121,7 +122,7 @@ const processData = (data) =>{
     })
 
     
-        deleteSale.addEventListener('click', () =>{
+     /*   deleteSale.addEventListener('click', () =>{
             const input = {"edit": 0};
             fetch('/editText'+"?column=sale_price"+"&imgId="+data.img1id,{
                 method: 'put',
@@ -149,7 +150,7 @@ const processData = (data) =>{
                 window.location.reload()
             }
         })
-        })
+        })   */
         deleteSizeBtn.forEach((item,i)=>{
             item.addEventListener('click', () =>{
             const edit = false 

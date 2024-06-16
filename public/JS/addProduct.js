@@ -213,8 +213,10 @@ window.onload = formInput.addEventListener
         largeSize = true
      }    
    
+     
      const short_description = document.getElementById('short_description')
-     const sale_price = document.getElementById('sale_price')
+     //feature not finshed
+     //const sale_price = document.getElementById('sale_price')
     const description = document.getElementById('description')
     const category = document.getElementById('category')
     const brand = document.getElementById('brand');
@@ -226,7 +228,7 @@ window.onload = formInput.addEventListener
     formData.append("brand", brand.value);
     formData.append("price", price.value); 
     formData.append("short_description", short_description.value)
-    formData.append("sale_price", sale_price.value)
+   // formData.append("sale_price", sale_price.value)
     formData.append("sizes_s", smallSize)
     formData.append("sizes_m", mediumSize)
     formData.append("sizes_l", largeSize)

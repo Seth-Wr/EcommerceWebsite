@@ -10,10 +10,19 @@ const proccessData = (data) =>{
         const qty = data[i].qty
         const unitPrice =data[i].unitPrice
         const size = data[i].size
+        const sale_price = data[i].sale_price
+      let sizeText
+      let sale_price_Text
+      if(sale_price == null || sale_price <= 0){
+        sale_price_Text = ""
+      }else {
+        sale_price_Text = ` <span>Sale: ${sale_price}</span>  `
+      }
+
         if(size.charAt(0) == "N"){
           sizeText = ""
         }else{sizeText = `<span>Size ${size}</span>`  }
-        createSection(imgId,imgUrl,description,price,qty,unitPrice,sizeText)
+        createSection(imgId,imgUrl,description,price,qty,unitPrice,sizeText,sale_price_Text)
     }
     shoppingCart.innerHTML = sections.toString();
     
@@ -129,7 +138,7 @@ const proccessData = (data) =>{
 }
 
 
-const createSection = (imgId, imgUrl, description, price, qty,unitPrice,size) => {
+const createSection = (imgId, imgUrl, description, price, qty,unitPrice,size,sale_price) => {
   const cards = new String(`
   <div class="item">
       
@@ -146,11 +155,13 @@ const createSection = (imgId, imgUrl, description, price, qty,unitPrice,size) =>
    
   <div class="price_per">
     <span>${unitPrice}</span>
-    
+    ${sale_price} 
   </div>
   <div class="price">
   <span>${price}</span>
+  
 </div>
+ 
   <div class="quantity">
     <button class="plus-btn" type="button" name="button">
       <img src="/img/plus.jpg" alt="" />

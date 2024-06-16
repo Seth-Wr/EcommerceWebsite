@@ -44,6 +44,9 @@ createNav();
 
 const getUserSession = async() =>{ 
 fetch('/getUserSession').then((res) =>  {
+    if(res.status == 204){
+        window.location.replace("/seller")
+    }
     if(res.status == 202){
         document.getElementById('logout').innerHTML =`<button id="logoutBtn">logout</button>`
         document.getElementById('logoutBtn').addEventListener('click', ()=>{

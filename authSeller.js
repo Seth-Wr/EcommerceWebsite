@@ -10,6 +10,21 @@ function authSeller(req,res,next){
     
 }
 }
+
+function sellerLogin(req,res,next){
+    if(req.user){
+        if(req.user.seller == true){
+            return res.redirect('/seller')
+        }
+        else{
+            return next()
+        }
+        
+    }
+else{
+    return next();
+}
+}
 function checkAuthenticated(req, res,next){
     if(req.isAuthenticated()){
         return res.redirect("/")
@@ -23,4 +38,4 @@ function checkNotAuthenticated(req, res,next){
     res.redirect('/login')
 }
 
-module.exports = {authSeller, checkAuthenticated, checkNotAuthenticated};
+module.exports = {authSeller, checkAuthenticated, checkNotAuthenticated, sellerLogin};

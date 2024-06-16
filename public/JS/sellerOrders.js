@@ -84,6 +84,8 @@ const proccessData = (data) =>{
         const totalPrice = data[i]['all_Products'][x].totalPrice
         const qty = data[i]['all_Products'][x].qty
         const size = data[i]['all_Products'][x].size
+        let sizeText
+        console.log(size)
         if(size.charAt(0) == "N"){
           sizeText = ""
         }else{sizeText = `<span>Size ${size}</span>`  }

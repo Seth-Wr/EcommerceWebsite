@@ -6,6 +6,7 @@ dotenv.config();
 const path = require('path');
 const crypto = require('crypto')
 const session = require('express-session');
+
 // routes
 const checkout_Route = require('./routes/create-checkout-session')
 const product_Page_Route = require("./routes/product_page")
@@ -31,10 +32,11 @@ const shipOrder_Route = require("./routes/shipOrder")
 const passport_Route = require("./passport-config");
 const passport = require('passport');
 
-
+//checking webhook functions created in another file
+const {setInterval_Payment,setInterval_Fraud} = require('./Stripe_webhooks_check')
 
 //custom middlewars
-const {authSeller, checkAuthenticated,checkNotAuthenticated} = require('./authSeller');
+const {authSeller, checkAuthenticated,checkNotAuthenticated,sellerLogin} = require('./authSeller');
 //postgres connections
 const { pool } = require('./db');
 const pgSession = require('connect-pg-simple')(session)
@@ -75,17 +77,18 @@ app.use(express.static(staticPath));
 
 
 //local static routes
-app.get("/", (req, res) => {
+app.get("/",(req, res) => {
+
     res.sendFile(path.join(staticPath, "index.html"));   })
 
-app.get('/search', (req, res) => {
+app.get('/search', sellerLogin,(req, res) => {
     
   res.sendFile(path.join(staticPath, "search.html")); })
 
-app.get('/signup', checkAuthenticated,(req, res) =>{
+app.get('/signup',sellerLogin, checkAuthenticated,(req, res) =>{
     res.sendFile(path.join(staticPath, "signup.html"));  })
 
-app.get('/login', checkAuthenticated,(req, res) =>{
+app.get('/login',sellerLogin, checkAuthenticated,(req, res) =>{
     res.sendFile(path.join(staticPath, "login.html"));}
     )
 app.get('/add-product', checkNotAuthenticated,authSeller,(req, res) => {
@@ -98,20 +101,20 @@ app.get('/editProduct', checkNotAuthenticated,authSeller,(req,res)=>{
         res.sendFile(path.join(staticPath, "success.html")) })
  
  
-app.get('/product', (req, res) => {
+app.get('/product',sellerLogin, (req, res) => {
     res.sendFile(path.join(staticPath, "product.html"));  })
 
-app.get('/userCart', (req, res) => {
+app.get('/userCart',sellerLogin, (req, res) => {
     res.sendFile(path.join(staticPath, "userCart.html"));  })
     
 app.get('/seller', checkNotAuthenticated,authSeller,(req, res) =>{
     res.sendFile(path.join(staticPath, "seller.html"));
     console.log(req.user)     })
 
-app.get('/userOrders', (req, res) => {
+app.get('/userOrders',sellerLogin, checkNotAuthenticated, (req, res) => {
         res.sendFile(path.join(staticPath, "userOrders.html"));  })
 
-app.get('/sellerOrders', (req, res) => {
+app.get('/sellerOrders',  checkNotAuthenticated,authSeller,(req, res) => {
     res.sendFile(path.join(staticPath, "sellerOrders.html"));  })
 
 //routes
@@ -138,8 +141,13 @@ app.use('/sellersOrders', sellersOrders_Route)
 app.use('/shipOrder', shipOrder_Route)
 
 
+
+
 app.listen(3000, () => {
     console.log('listening on port 3000');})
+
+    setInterval_Payment()
+    setInterval_Fraud()
 
 app.get('/404', (req, res) => {    res.sendFile(path.join(staticPath, "404.html"));
 })

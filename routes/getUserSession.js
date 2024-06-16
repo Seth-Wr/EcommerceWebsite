@@ -10,6 +10,9 @@ const {pool} = require("../db")
   router.get('/', async(req,res) =>{
     //console.log(req.session.cart)
     if(req.user){
+        if(req.user.seller == true){
+            return res.sendStatus(204)
+        }
         console.log(req.user.id)
         if(!req.session.cartUpdated){
             pool.query(`Select cart from usercart where userid = $1`, [req.user.id],async(err,result) => {

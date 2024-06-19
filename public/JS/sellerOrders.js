@@ -15,17 +15,18 @@ const yes_or_no = (element) =>{
         msg.style.visibility = "visible"
       })
        no.addEventListener('click', () =>{
-          console.log("hidden")
           yes.style.visibility = "hidden"
         no.style.visibility = "hidden"
         msg.style.visibility = "hidden"
         item.style.visibility = "visible"
         })
         yes.addEventListener('click', () =>{
+          
           const parent = item.parentNode.parentNode
-          const shipOrderObj = { id: parent.childNodes[13].innerHTML,
+          
+          const shipOrderObj = { id: parent.childNodes[5].innerHTML,
           tracking_number: document.querySelectorAll(".tracking_Number")[i].value,
-        email: parent.childNodes[17].innerHTML}
+        email: parent.childNodes[18].innerHTML}
        fetch('/shipOrder',{
             method: 'put',
             headers:  {'Content-Type': 'application/json'},
@@ -41,7 +42,7 @@ const yes_or_no = (element) =>{
 }
 
 
-const create_Order = (shipping,payment_id,order_price,date,order_status,sections,email) =>{
+const create_Order = (shipping,payment_id,order_price,date,order_status,sections,email,totalQty) =>{
   let shipping_status
   let shippingBtns
   if(order_status == true){
@@ -56,16 +57,25 @@ const create_Order = (shipping,payment_id,order_price,date,order_status,sections
         <button class="ship_Yes" type="button">YES</button>
         <button class="ship_No" type="button">NO</button> 
 </div>`)} 
-  const front = new String(`  <div class="orders">
-  <span class="date">${date}</span>
-  <span class="order_status">${shipping_status.toString()}</span>`)
-  
-const back = new String(` <br > <span class="order_price">${order_price}</span>
-<p class="order_id">${payment_id}</p>
-<p class="shipping">${shipping.address.city +" "+ shipping.address.line1 +" "+ shipping.address.state +" "+ shipping.address.country +" "+ shipping.address.postal_code}</p>
+ 
+
+const front = new String(`<div class="order">
+ <div class="order-info">
+<span class="date order-text">Date: ${date}</span><br>
+<label for="order_id">Order ID:   </label><span class="order_id order-text">${payment_id}</span>
+
+<br>
+<span class="order-text">Total Quantity: ${totalQty}</span>
+<br > <span class="order_price order-text">Order Total: ${order_price}</span><br>
+<span class="order_status order-text">${shipping_status.toString()}</span>
 <p class="email">${email}</p>
+<p class="shipping order-text">Shipping: ${shipping.address.city +" "+ shipping.address.line1 +" "+ shipping.address.state +" "+ shipping.address.country +" "+ shipping.address.postal_code}</p>
 ${shippingBtns}
-</div><br>     `)
+</div>  <div class="order-items"> `)
+  const back = new String(`</div>  </div>
+     `)  
+
+
 
 const order = front + sections.toString() + back
 return order
@@ -76,6 +86,7 @@ const proccessData = (data) =>{
   const ordersList = []
     for(let i =0;i < data.length; i++){
       const sections = []
+      let totalQty = 0
       for(let x =0; x < data[i]['all_Products'].length; x++){
         
         const imgId = data[i]['all_Products'][x].imgId
@@ -85,16 +96,15 @@ const proccessData = (data) =>{
         const qty = data[i]['all_Products'][x].qty
         const size = data[i]['all_Products'][x].size
         let sizeText
-        console.log(size)
         if(size.charAt(0) == "N"){
-          sizeText = ""
-        }else{sizeText = `<span>Size ${size}</span>`  }
+          sizeText = "</div>"
+        }else{sizeText = `<span class="size">Size ${size}</span>  </div>`  }
       const card = createSection(imgId,imgUrl,description,totalPrice,qty,sizeText)
       sections.push(card)
-      
+      totalQty += parseInt(qty)
       }
-      //console.log(data[i])
-     const order = create_Order(data[i].shipping,data[i].payment_id,data[i].order_price,data[i].date,data[i].order_status_shipped,sections,data[i].email)
+      
+     const order = create_Order(data[i].shipping,data[i].payment_id,data[i].order_price,data[i].date,data[i].order_status_shipped,sections,data[i].email,totalQty)
      ordersList.push(order)
     }
     const html = ordersList.toString()
@@ -118,7 +128,7 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
     <img src="${imgUrl}" class="product-thumb" alt="">
     </a>
     </div>
- 
+      <div class="items-text">
     <div class="description">
       <span>${description}</span>
       
@@ -128,10 +138,10 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
     <div class="price">
     <span>Total Price: ${totalPrice}</span>
   </div>
-      <span>Qty: ${qty}</span>
+      <span>Qty: ${qty}</span><br>
       
      ${size}
-     
+     </div>
     `)
     return cards
 

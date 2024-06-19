@@ -1,12 +1,4 @@
-const reloadPage = () => {
-	window.onpageshow = function(event) {
-		if (event.persisted) {
-			window.location.reload();
-		}
-	};
-};
 
-reloadPage() ; 
 
 const createNav = () => {
 let nav = document.querySelector('.navbar');
@@ -83,6 +75,25 @@ fetch('/getUserSession').then((res) =>  {
 
 
 
+
    getUserSession()
   
 
+   const reloadPage = () => {
+	window.onpageshow = function(event) {
+		if (event.persisted) {
+			fetch('/getShoppingCartQty').then((res) =>{
+                if(res.status == 200){
+                    res.json().then((res) => {
+                        document.querySelector(".badge").textContent = res.qty
+                    })
+                }else{
+                    return
+                }
+            })
+
+		}
+	};
+};
+
+reloadPage() ; 

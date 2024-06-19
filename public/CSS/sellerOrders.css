@@ -1,3 +1,73 @@
+@import 'nav.css';
+body{
+    background-color:cornsilk;
+}
+.order{
+    border: 2px solid pink;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-left: 5px;
+}
+.order-items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+}
+
+.order-text{
+    text-align: center;
+    margin: 0;
+    
+}
+
+
+.title{
+    text-align: center;
+}
+.order-info{
+    
+
+    text-align: center;
+    
+    margin-bottom: 20px;
+    padding: 10px;
+    
+    
+    
+}
+
+.item{
+    
+    display: flex;
+    justify-content: center;
+    padding-top: 1%;   
+}
+
+.image{
+    width: 180px;
+}
+.product-thumb{
+    height: 130px;
+    padding: 3%;
+}
+
+.description{
+    padding-top: 14%;
+    padding-bottom: 2%;
+}
+
+.size {
+    margin-top: 20px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.price{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
 .ship_Yes{
     visibility: hidden;
 }

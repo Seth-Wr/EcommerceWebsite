@@ -29,6 +29,7 @@ const customerOrders_Route = require("./routes/customerOrders")
 const sellersOrders_Route = require("./routes/sellersOrders")
 const Stripe_webhooks = require("./routes/Stripe_webhooks")
 const shipOrder_Route = require("./routes/shipOrder")
+const getShoppingCartQty_Route = require('./routes/getShoppingCartQty')
 const passport_Route = require("./passport-config");
 const passport = require('passport');
 
@@ -139,6 +140,7 @@ app.use('/logout', logout_Route)
 app.use('/customerOrders', customerOrders_Route)
 app.use('/sellersOrders', authSeller,sellersOrders_Route)
 app.use('/shipOrder',authSeller, shipOrder_Route)
+app.use('/getShoppingCartQty',getShoppingCartQty_Route)
 
 
 

@@ -4,19 +4,24 @@ const orders = document.getElementById("user_Orders");
 
 
 
-const create_Order = (shipping,payment_id,order_price,date,order_status,sections) =>{
+const create_Order = (shipping,payment_id,order_price,date,order_status,sections,totalQty) =>{
   let shipping_status
   if(order_status == true){
     shipping_status = "Shipped" 
   }else{ shipping_status = "Pending shipment"} 
-  const front = new String(`  <div class="orders">
-  <span class="date">${date}</span>
-  <span class="order_status">${shipping_status.toString()}</span>`)
-  
-const back = new String(` <br > <span class="order_price">${order_price}</span>
-<p class="order_id">${payment_id}</p>
-<p class="shipping">${shipping.address.city +" "+ shipping.address.line1 +" "+ shipping.address.state +" "+ shipping.address.country +" "+ shipping.address.postal_code}</p>
-</div><br>     `)
+
+const front = new String(`<div class="order">
+ <div class="order-info">
+<span class="date order-text">Date: ${date}</span><br>
+<p class="order_id order-text">Order ID: ${payment_id}</p><br>
+<span class="order-text">Total Quantity: ${totalQty}</span>
+<br > <span class="order_price order-text">Order Total: ${order_price}</span><br>
+<span class="order_status order-text">${shipping_status.toString()}</span>
+<p class="shipping order-text">Shipping: ${shipping.address.city +" "+ shipping.address.line1 +" "+ shipping.address.state +" "+ shipping.address.country +" "+ shipping.address.postal_code}</p>
+</div>  <div class="order-items"> `)
+  const back = new String(`</div>  </div>
+     `)  
+
 
 const order = front + sections.toString() + back
 return order
@@ -27,6 +32,7 @@ const proccessData = (data) =>{
   const ordersList = []
     for(let i =0;i < data.length; i++){
       const sections = []
+      let totalQty = 0
       for(let x =0; x < data[i]['all_Products'].length; x++){
         
         const imgId = data[i]['all_Products'][x].imgId
@@ -39,13 +45,13 @@ const proccessData = (data) =>{
         if(size.charAt(0) == "N"){
           sizeText = ""
         }else{sizeText = `<span>Size ${size}</span>`  }
-
+        totalQty += parseInt(qty)
       const card = createSection(imgId,imgUrl,description,totalPrice,qty,sizeText)
       sections.push(card)
       
       }
 
-     const order = create_Order(data[i].shipping,data[i].payment_id,data[i].order_price,data[i].date,data[i].order_status_shipped,sections)
+     const order = create_Order(data[i].shipping,data[i].payment_id,data[i].order_price,data[i].date,data[i].order_status_shipped,sections,totalQty)
      ordersList.push(order)
     }
     const html = ordersList.toString()
@@ -68,7 +74,7 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
     <img src="${imgUrl}" class="product-thumb" alt="">
     </a>
     </div>
-  
+    <div class="items-text">
     <div class="description">
       <span>${description}</span>
       
@@ -76,11 +82,12 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
     ${size}
      
     <div class="price">
-    <span>Total: </span>
-    <span>Total price: ${totalPrice}</span>
+    <span>Total: ${totalPrice}</span>
   </div>
-      <span>Qty: ${qty}</span>
+      <span class="qty">Qty: ${qty}</span>
+      </div>
       
+      </div>
      
      
     `)

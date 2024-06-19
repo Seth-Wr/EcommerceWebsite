@@ -7,25 +7,23 @@ body{
     display: flex;
     justify-content: center;
     padding-top: 1%;
-
-    
-    
 }
 .image{
-    width: 180px;
+    width: 130px;
+    margin-right: 4%;
 }
 .product-thumb{
     height: 130px;
-    padding: 3%;
+    
 }
 .items-text{
-    min-width: 180px;
+    padding-right: 7%;
     
     
 }
 
 .description{
-    padding-top: 14%;
+    padding-top:   25%;
     padding-bottom: 2%;
 }
 
@@ -44,12 +42,12 @@ body{
 
 
 .qtyBox{
-    min-width: 130px;
+    min-width: 15%;
 }
 .quantity{
     display: flex;
     align-items: center;
-    padding-top: 50%;
+    padding-top: 20%;
     padding-bottom: 15%;
 }
 
@@ -63,8 +61,8 @@ body{
     width: 35px;
 }
 .checkout{
-    min-height: 200px;
-    min-width: 200px;
+    min-height: 30%;
+    min-width: 20%;
 position: fixed;
 top: 30%;
 left: 80%;
@@ -78,7 +76,8 @@ background-color:  cornsilk;
      background-color: pink;
      height: 20%;
      width: 100%;
-     
+     margin-top: 7%;
+     text-align: center;
 }
 #checkout-btn:hover{
     background-color: antiquewhite;
@@ -86,7 +85,8 @@ background-color:  cornsilk;
 .total-price{
     position: absolute;
     top: 30%;
-    left: 40%;
+    left: 75px;
+    
 }
 .total-price-label{
     position: absolute;
@@ -96,7 +96,8 @@ background-color:  cornsilk;
 .totalItems{
     position: absolute;
     top: 20%;
-    left: 40%;
+    left: 80px;
+    
 }
 .totalItems-label{
     position: absolute;

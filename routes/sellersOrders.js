@@ -25,33 +25,39 @@ const perOrder_Query = (product_id) => {
 const proccessData = (response) =>{
     const productList = new Array  
     return new Promise(async(resolve,reject) =>{
-        const productsArr = Object.keys(response.products)
-    for(let u =0;u < productsArr.length/5; u++){
-        let x = u+1
-        const imgid = await perOrder_Query(response.products['id_'+x])
-        const getObjectParams = 
-        {  Bucket: bucketName,
-          Key: imgid, 
-      }
+        try {
+            const productsArr = Object.keys(response.products)
+            for(let u =0;u < productsArr.length/5; u++){
+                let x = u+1
+                const imgid = await perOrder_Query(response.products['id_'+x])
+                const getObjectParams = 
+                {  Bucket: bucketName,
+                  Key: imgid, 
+              }
+              
+              
+                  const command = new GetObjectCommand(getObjectParams);
+                 const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
+                const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x],response.products['Size_'+x])
+                productList.push(product)            
+            }  
+        
+            const orderObj = {
+                all_Products: productList,
+                shipping: response.shipping_address,
+                payment_id: response.payment_id,
+                order_price: response.order_price,
+                date: response.date_time,
+                order_status_shipped: response.order_status_shipped,
+                email: response.user_email
+        
+            } 
+            resolve(orderObj)    
+        } catch (error) {
+            console.error(error
+            )
+        }
       
-      
-          const command = new GetObjectCommand(getObjectParams);
-         const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
-        const product = new orderCard(imgid,productUrl,response.products['name_'+x],response.products['Qty_'+x],response.products['Price_'+x],response.products['Size_'+x])
-        productList.push(product)            
-    }  
-
-    const orderObj = {
-        all_Products: productList,
-        shipping: response.shipping_address,
-        payment_id: response.payment_id,
-        order_price: response.order_price,
-        date: response.date_time,
-        order_status_shipped: response.order_status_shipped,
-        email: response.user_email
-
-    } 
-    resolve(orderObj)    
 })
 }
 

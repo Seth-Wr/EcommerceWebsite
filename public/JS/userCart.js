@@ -1,6 +1,7 @@
 const shoppingCart = document.getElementById("shopping-cart");
 const sections = [];
 const checkoutBtn = document.getElementById("checkout-btn");
+
 const proccessData = (data) =>{
     for(let i =0;i < data.length; i++){
         const imgId = data[i].imgId
@@ -21,11 +22,12 @@ const proccessData = (data) =>{
 
         if(size.charAt(0) == "N"){
           sizeText = ""
-        }else{sizeText = `<span>Size ${size}</span>`  }
+        }else{sizeText = `<span class"size">Size ${size}</span>`  }
         createSection(imgId,imgUrl,description,price,qty,unitPrice,sizeText,sale_price_Text)
     }
     shoppingCart.innerHTML = sections.toString();
-    
+    document.querySelector(".totalItems").textContent =  document.querySelector(".badge").textContent
+   
 
     if(document.querySelectorAll(".deleteBtn")){
       document.querySelectorAll(".deleteBtn").forEach((item,i) =>{
@@ -43,7 +45,7 @@ const proccessData = (data) =>{
           }
         }).catch(err => alert("Unexpected Error"));
 
-      })        
+      })       
       })
     }
     if(document.querySelectorAll(".plus-btn")){
@@ -57,11 +59,12 @@ const proccessData = (data) =>{
             headers: {'Content-Type': 'application/json'}
           }).then((res) =>{
             if(res.status == 201){
-              let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[1].textContent) + data[i].unitPrice
+              let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[3].textContent) + data[i].unitPrice
               let newTotalPrice = parseInt(document.querySelector('.total-price').textContent) + data[i].unitPrice
-              document.querySelectorAll('.price')[i].childNodes[1].textContent = newPrice
+              document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice
               document.querySelectorAll(".qtyInput")[i].value ++;
               document.querySelector(".badge").textContent ++;
+              document.querySelector(".totalItems").textContent ++;
               document.querySelector('.total-price').textContent = newTotalPrice
          } 
         }).catch(err => alert("Unexpected Error"));
@@ -81,11 +84,12 @@ const proccessData = (data) =>{
             headers: {'Content-Type': 'application/json'}
           }).then((res) =>{
             if(res.status == 201){
-              let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[1].textContent) - data[i].unitPrice
+              let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[3].textContent) - data[i].unitPrice
               let newTotalPrice = parseInt(document.querySelector('.total-price').textContent) - data[i].unitPrice
-              document.querySelectorAll('.price')[i].childNodes[1].textContent = newPrice
+              document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice
               document.querySelectorAll(".qtyInput")[i].value --;
               document.querySelector(".badge").textContent --;
+              document.querySelector(".totalItems").textContent --;
               document.querySelector('.total-price').textContent = newTotalPrice
               if(document.querySelectorAll(".qtyInput")[i].value == 0){
                 fetch('/deleteCartItem'+urlParams,{
@@ -112,25 +116,40 @@ const proccessData = (data) =>{
             e.preventDefault()
             
           }
-          console.log(e.key)
+          
         })
         item.addEventListener('change', () =>{
-          console.log("item value" + item.value)
+          
           const urlLink = data[i].imgId
           const size = data[i].size
           const urlParams = "?imgId=" + urlLink +"&size="+size
-          fetch('/inputChangeCart'+urlParams+"&inputQty="+item.value,{
-            method: 'put',
-            headers: {'Content-Type': 'application/json'}
-          }).then((res) =>{
-            if(res.status == 201){
-              res.json().then((res) =>{
-                document.querySelectorAll('.price')[i].childNodes[1].textContent = res.itemPrice
-                document.querySelector(".badge").textContent = res.totalQty;
-                document.querySelector('.total-price').textContent = res.totalPrice        
-              })
-            }
-          }).catch(err => alert("Unexpected Error"));
+          if(document.querySelectorAll(".qtyInput")[i].value == 0){
+            fetch('/deleteCartItem'+urlParams,{
+              method: 'delete',
+              headers: {'Content-Type': 'application/json'}
+            }).then((res) =>{
+              if(res.status == 201){
+                
+               return window.location.reload();
+              }
+            }).catch(err => alert("Unexpected Error"));
+          }
+          else{
+            fetch('/inputChangeCart'+urlParams+"&inputQty="+item.value,{
+              method: 'put',
+              headers: {'Content-Type': 'application/json'}
+            }).then((res) =>{
+              if(res.status == 201){
+                res.json().then((res) =>{
+                  document.querySelectorAll('.price')[i].childNodes[3].textContent = res.itemPrice
+                  document.querySelector(".badge").textContent = res.totalQty;
+                  document.querySelector(".totalItems").textContent = res.totalQty;
+                  document.querySelector('.total-price').textContent = res.totalPrice        
+                })
+              }
+            }).catch(err => alert("Unexpected Error"));
+          } 
+        
           })
       })
     }
@@ -147,32 +166,35 @@ const createSection = (imgId, imgUrl, description, price, qty,unitPrice,size,sal
   <img src="${imgUrl}" class="product-thumb" alt="">
   </a>
   </div>
-
+  <div class="items-text">
   <div class="description">
-    <span>${description}</span>
+    <span class="item-text-inner">${description}</span>
     
   </div>
-   
+  ${size}
   <div class="price_per">
-    <span>${unitPrice}</span>
+    <span class="item-text-inner">${unitPrice}</span>
     ${sale_price} 
   </div>
   <div class="price">
-  <span>${price}</span>
-  
+  <span>Total: </span>
+  <span class="item-text-inner">${price}</span>
+</div>
 </div>
  
+  <div class="qtyBox">
   <div class="quantity">
-    <button class="plus-btn" type="button" name="button">
-      <img src="/img/plus.jpg" alt="" />
+    <button class="plus-btn qtyBtn" type="button" name="button">
+      <img src="/img/plus.jpg" class="btn-img" alt="" />
     </button>
     <input type="number" value=${qty} class = "qtyInput" >
-    <button class="minus-btn" type="button" name="button">
-      <img src="/img/minus.jpg" alt="" />
+    <button class="minus-btn qtyBtn" type="button" name="button">
+      <img src="/img/minus.jpg" class="btn-img" alt="" />
     </button>
   </div>
-  ${size}
+ 
     <button class="deleteBtn">Delete</button>
+    </div>
     </div>`)
   sections.push(cards)
 
@@ -211,3 +233,4 @@ fetch('/shoppingCart').then((res) => {
         console.log("failed request")
     }
 }).catch(err => alert("Unexpected Error")); 
+

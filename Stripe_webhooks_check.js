@@ -17,6 +17,7 @@ const transporter = nodemailer.createTransport({
     },
   });
   const mailOptions = (email) => {
+    console.log("shipping mail")
    return { 
     from: {name: 'seth',
   address: process.env.user
@@ -28,6 +29,7 @@ const transporter = nodemailer.createTransport({
   }
 
   const mailOption_Alert = (event) => {
+    console.log("Alert mail")
     return { 
      from: {name: 'seth',
    address: process.env.user
@@ -182,17 +184,16 @@ const display_Stripe_Events = async()=>{
         const query = await orderExist_Query(payment_id)
         
         if(query.rowCount < 1 ){
-            console.log("rowcount below 1")
            await order_Not_Found(events.data[i])
         
 
         }
         else if(query.rows[0].order_status_received == false){
-            console.log("order status not recieved")
+          console.log("order recieved false")
           await  order_Not_Found(events.data[i])
         }
-        else if(query.rows[0].products == null){
-            console.log("products are null")
+        else if(query.rowCount > 0 && query.rows[0].products == null){
+          console.log("Query products not saved")
           await  order_Not_Found(events.data[i])
         }
         else{ console.log("All up to date")}

@@ -16,10 +16,6 @@ nav.innerHTML = `
         <img src="img/logo.jpg" alt="">
     </a>
         <div class="nav-items">
-            <div class="search">
-                <input type="text" class="search-box" placeholder="search brand, product">
-                <button class="search-btn">search</button>
-            </div>
             <ul class="links-container">
                 <li><a href="/search?Category=swim_suits">Swim Suits</a></li>
                 <li><a href="search.html?Category=full_sets">Sets</a></li>
@@ -44,6 +40,7 @@ createNav();
 
 const getUserSession = async() =>{ 
 fetch('/getUserSession').then((res) =>  {
+    
     if(res.status == 204){
         window.location.replace("/seller")
         return

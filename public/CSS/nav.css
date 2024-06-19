@@ -1,12 +1,25 @@
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number]{
+    -moz-appearance: textfield;
+}
+body{
+    margin: 0;
+}
 .navbar{
     
     position: sticky;
+    width: 100%;
+    top: 0;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 80px;
+    padding-bottom:  15px;
     background: #eec0c8;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
     }
 
     .logo img{
@@ -47,4 +60,5 @@
         width: 30px;
         height: 30px;
         color: blue;
+        padding: 15px;
     }   

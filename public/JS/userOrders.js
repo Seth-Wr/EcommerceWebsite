@@ -68,19 +68,20 @@ const createSection = (imgId, imgUrl, description, totalPrice,qty,size) => {
     <img src="${imgUrl}" class="product-thumb" alt="">
     </a>
     </div>
- 
+  
     <div class="description">
       <span>${description}</span>
       
     </div>
+    ${size}
      
-    
     <div class="price">
+    <span>Total: </span>
     <span>Total price: ${totalPrice}</span>
   </div>
       <span>Qty: ${qty}</span>
       
-      ${size}
+     
      
     `)
     return cards

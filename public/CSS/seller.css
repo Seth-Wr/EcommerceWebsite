@@ -1,4 +1,4 @@
-.search-results{
+/*.search-results{
     width: 100%;
     padding: 60px 0;
 }
@@ -20,4 +20,4 @@
     grid-template-columns: repeat(3, 1fr);
     height: auto;
     grid-row-gap: 40px;
-}
+}  */

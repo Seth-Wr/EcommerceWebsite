@@ -12,7 +12,7 @@ const {authSeller} = require('../authSeller')
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
 
-
+//This Route adds a new product to AWS and text content to DB in postgres
 router.post('/', authSeller,upload.array('files'),async(req, res) =>{
     try {
         let imageNames = new Array; 

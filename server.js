@@ -109,7 +109,7 @@ app.get('/userCart',sellerLogin, (req, res) => {
     
 app.get('/seller', checkNotAuthenticated,authSeller,(req, res) =>{
     res.sendFile(path.join(staticPath, "seller.html"));
-    console.log(req.user)     })
+        })
 
 app.get('/userOrders',sellerLogin, checkNotAuthenticated, (req, res) => {
         res.sendFile(path.join(staticPath, "userOrders.html"));  })

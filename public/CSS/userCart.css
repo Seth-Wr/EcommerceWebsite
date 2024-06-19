@@ -17,7 +17,8 @@ body{
     
 }
 .items-text{
-    padding-right: 7%;
+    margin-right: 4%;
+    min-width: 80px;
     
     
 }
@@ -65,7 +66,7 @@ body{
     min-width: 20%;
 position: fixed;
 top: 30%;
-left: 80%;
+left: 75%;
 background-color:  cornsilk;
 
 }

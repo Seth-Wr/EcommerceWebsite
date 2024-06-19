@@ -15,14 +15,18 @@ nav.innerHTML = `
                 <li><a href="search.html?Category=bottoms">Bottoms</a></li>
                 <li><a href="search.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
             </ul>
-        </div>
-        <div id="logout"></div>
-        <div id="login"></div>
-        <div id="myOrders"></div>
-
+        </div> 
+        <div class="nav-User-Btns">
         <a href="/userCart">
         <i class="shoppingCart"></i> Shopping Cart <span class="badge"></span>
      </a>
+       
+        <div id="myOrders"></div>
+        <div id="logout"></div>
+        <div id="login"></div>
+
+    
+     </div>
 `;
 }
 console.log("created")

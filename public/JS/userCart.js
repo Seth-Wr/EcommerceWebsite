@@ -12,6 +12,7 @@ const proccessData = (data) =>{
         const unitPrice =data[i].unitPrice
         const size = data[i].size
         const sale_price = data[i].sale_price
+        console.log(size)
       let sizeText
       let sale_price_Text
       if(sale_price == null || sale_price <= 0){
@@ -25,7 +26,9 @@ const proccessData = (data) =>{
         }else{sizeText = `<span class"size">Size ${size}</span>`  }
         createSection(imgId,imgUrl,description,price,qty,unitPrice,sizeText,sale_price_Text)
     }
-    shoppingCart.innerHTML = sections.toString();
+    const html = sections.toString()
+    const finalhtml = html.replace(/,/g, "")
+    shoppingCart.innerHTML = finalhtml;
     document.querySelector(".totalItems").textContent =  document.querySelector(".badge").textContent
    
 
@@ -59,6 +62,7 @@ const proccessData = (data) =>{
             headers: {'Content-Type': 'application/json'}
           }).then((res) =>{
             if(res.status == 201){
+              console.log(document.querySelectorAll('.price')[i].childNodes[3].textContent)
               let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[3].textContent) + data[i].unitPrice
               let newTotalPrice = parseInt(document.querySelector('.total-price').textContent) + data[i].unitPrice
               document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice

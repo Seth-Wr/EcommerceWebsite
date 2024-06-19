@@ -1,15 +1,24 @@
+@import 'nav.css';
+body{
+    background-color:cornsilk;
+}
 .product-details{
     width: 100%;
-    padding: 60px 10vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 20px;
+    
 }
 
 .image-slider{
+    
     width: 500px;
     height: 500px;
+    min-width: 415px;
+    margin-right: 100px;
     position: relative;
     background-size: cover;
+    z-index: 20;
 }
 
 .product-images{
@@ -39,7 +48,8 @@
 }
 
 .details{
-    width: 50%;
+    max-width: 400px;
+    min-width: 400px;
 }
 
 .details .product-brand{

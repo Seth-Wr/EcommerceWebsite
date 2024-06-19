@@ -122,8 +122,7 @@ addToCartBtn.addEventListener('click', () => {
      
     
    
- //  const size_input = document.querySelector(".size-radio-btn.check");
-  //  console.log(size_input.textContent)
+
 })
 }
 

@@ -11,8 +11,9 @@ const processData = async(data) =>{
             const imgId = data[i].imgId
             createSection(url,desc,brand,price,imgId);
     }
-    
-    section.innerHTML = sections.toString();
+    const html = sections.toString()
+    const finalhtml = html.replace(/,/g, "")
+    section.innerHTML = finalhtml;
 }
 
 

@@ -22,9 +22,10 @@ const {pool} = require("../db")
                             const cart = new Cart(req.session.cart)
                             for(let id in savedCart.items){
                                 for(i = 0; i < savedCart.items[id].qty; i++){
-                                    cart.add(savedCart.items[id].item,savedCart.items[id].item.imgid)
+                                    cart.add(savedCart.items[id].item,savedCart.items[id].item.imgid,savedCart.items[id].size)
                                 }
                             }
+                            
                             // sends data to db
                             const cartJson = JSON.stringify(cart)
                             pool.query(`update userCart set cart = ('${cartJson}') where userid = '${req.user.id}'`, async(error,response) =>{

@@ -12,8 +12,9 @@ const processData = (data) =>{
             const category= data[i].category
             createSection(url,desc,brand,price,imgId,category);
     }
-      
-    section.innerHTML = sections.toString();
+    const html = sections.toString()
+    const finalhtml = html.replace(/,/g, "") 
+    section.innerHTML = finalhtml;
 }
 
 

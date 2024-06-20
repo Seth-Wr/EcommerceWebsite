@@ -1,23 +1,64 @@
-/*body{
-    display: block;
-    padding: 0 10vw;
+@import 'nav.css';
+@import 'footer.css';
+
+
+.add-items-text{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 
-
-
-.upload-catalouge{
-    width: 100%;
-    margin: 20px 0;
+.file-input{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.form-content{
+    
     display: grid;
-    grid-template-columns: repeat(4, 100px);
-    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.submit{
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+}
+.submit-btn{
+    height: 35px;
+    width: 200px;
+}
+.image-slider{
+    margin-top: 30px;
+    width: 500px;
+    height: 500px;
+    min-width: 415px;
+    position: relative;
+    background-size: cover;
+    z-index: 20;
 }
 
-.upload-image{
-    width: 100%;
+.product-images{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background: #fff;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     height: 100px;
-    background: #f5f5f5;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.product-images img{
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
     cursor: pointer;
-    background-size: cover;
+}
+.product-images img.active{
+    opacity: 0.5;
 }
 

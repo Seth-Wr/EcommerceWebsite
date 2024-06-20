@@ -27,13 +27,16 @@ const createSection = (url,desc,brand,price,imgId,category) =>{
             <button class="card-btn">edit product</button>
             </a>
         </div>
+        
         <div class="product-info">
+        <div>
             <h2 class="product-brand">${brand}</h2>
             <p class="product-short-des">${desc}</p>
             <p class="product-category">${category}</p>
             <span class="price">${price}</span>
+            </div>
         </div>
-    </div>
+        </div>
     `)
   sections.push(cards)
 }

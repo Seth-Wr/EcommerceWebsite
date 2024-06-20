@@ -8,28 +8,43 @@
     <title>Document</title>
 </head>
 <body>
-
+    <nav class="navbar"></nav>
    <form  id='form'>
-    <div>
-        
-        <input type="file"  name="pic1" id="picture">
-        <input type="file"  name="pic2" id="picture2">
-        <input type="file"  name="pic3" id="picture3">
-        <input type="file"  name="pic4" id="picture4">
+    <div class="form-content">
+        <div class="file-input">
+        <div>
+        <input type="file"  name="pic1" id="picture"><br>
+        <input type="file"  name="pic2" id="picture2"><br>
+        <input type="file"  name="pic3" id="picture3"><br>
+        <input type="file"  name="pic4" id="picture4"><br>
         <img src="#" alt="Preview Uploaded Image" id="file-preview">
         <label for="first-file-upload-btn" class="upload-image"></label>
+    </div>
+    </div>
+    <div class="image-slider">
+    <div class="product-images">
+               
+        <img src="#" id="img1" alt="">
+        <img src="#"  id="img2" alt="">
+        <img src="#" id="img3"alt="">
+        <img src="#" id="img4"alt="">
+
+    </div>
+     </div>
         
-           <input type="text" id="description" placeholder="description">
+            <div class="add-items-text">
+                <div>
+           <input type="text" id="description" placeholder="description"><br>
            <select name="" id="category" placeholder="category">
             <option value="swim_suits">Swim suits</option>
             <option value="full_sets">Sets</option>
             <option value="tops">Tops</option>
             <option value="bottoms">Bottoms</option>
-           </select>
-        <button  type="submit" >add product</button>
-        <input type="number" placeholder="price" id="price">
-        <input type="text" id="brand" placeholder="brand">
-        <input type="text" id="short_description" placeholder="short description">
+           </select><br>
+       
+        <input type="number" placeholder="price" id="price"><br>
+        <input type="text" id="brand" placeholder="brand"><br>
+        <input type="text" id="short_description" placeholder="short description"><br>
       <!--  <input type="number" id="sale_price" placeholder="sale price">  -->
         <input type="checkbox" id="size_s" value="small">
         <label for="size_s">small size</label>
@@ -38,27 +53,21 @@
         <input type="checkbox" id="size_l" value="large">
         <label for="size_l">large size</label>
     </div>
+    </div>
+    </div><div class="submit">
+        <button  type="submit" class="submit-btn" >add product</button>
+    </div>
+   
+    
    </form>
-   <div id="previewContainer">
-   <div id="wrapper" class="preview">
-    
-   </div>
-   <div id="wrapper2" class="preview">
-    
-   </div>
-   <div id="wrapper3" class="preview">
-    
-   </div>
-   <div id="wrapper4" class="preview">
-    
-   </div>
-</div>
+  
   
                  
-            
+            <footer></footer>
        
      
-   <script src="JS/seller_Nav.js"></script>
+    <script src="JS/seller_Nav.js"></script>
+    <script src="JS/footer.js"></script>
     <script src="JS/addProduct.js"></script>
 
 </body>

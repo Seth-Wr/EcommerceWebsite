@@ -16,6 +16,7 @@ const perOrder_Query = (product_id) => {
                 console.log("error message " + err)
                 reject(err) 
             }
+            console.log(results)
             resovle(results.rows[0].imgid)
           })
     })

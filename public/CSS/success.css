@@ -1,0 +1,10 @@
+@import 'nav.css';
+
+h1{
+    text-align: center;
+    margin-top: 70px;
+}
+p{
+    text-align: center;
+    margin: 50px;
+}

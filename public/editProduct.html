@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/home.css">
-    <link rel="stylesheet" href="CSS/product.css">
+    <link rel="stylesheet" href="CSS/edit-product.css">
     <title>Edit Product</title>
 </head>
 <body>
     <nav class="navbar"></nav>
     <section class="product-details">
-        <button class="delete_Btn"> delete product</button>
+     <!--   <button class="delete_Btn"> delete product</button> -->
         <div class="image-slider">
-            <label for="changeImg">Change Image</label>
-            <input type="file" name="" id="changeImg" class="editImgBtn">
+            <div class="imgBtns"> <label for="changeImg"class="change-img">Change Image</label>
+                <input type="file" name="" id="changeImg" class="editImgBtn change-img"></div>
+           
             
             
             <div class="product-images">
@@ -51,24 +51,20 @@
           
       </div>
 
-        <div class="edit_Buttons">
-            <input type="number">
-            <button class="restock">restock</button> <br>
-            <button class="deleteSale">delete sale price</button> <br>
-            <input type="number" id="addSaleInput">
-            <button class="addSale">add sale price</button>  <br>
-            
-        </div>
+        
             
         </div>
 
 
     </section>
     <section class="detail-des">
-        <h2 class="heading">description</h2>
-        <input type="text" id="editDesInput">
-        <button class="editDes">edit description</button> <br>
-        <p class="des"> </p>
+        <div>
+            <h2 class="heading">description</h2>
+            <input type="text" id="editDesInput">
+            <button class="editDes">edit description</button> 
+            <p class="des"> </p>
+        </div>
+       
     </section>
 
 

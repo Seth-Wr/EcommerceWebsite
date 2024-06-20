@@ -12,7 +12,6 @@ const proccessData = (data) =>{
         const unitPrice =data[i].unitPrice
         const size = data[i].size
         const sale_price = data[i].sale_price
-        console.log(size)
       let sizeText
       let sale_price_Text
       if(sale_price == null || sale_price <= 0){

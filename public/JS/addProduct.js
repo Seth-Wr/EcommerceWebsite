@@ -4,14 +4,17 @@ const fileInput3 = document.getElementById('picture3');
 const fileInput4 = document.getElementById('picture4');
 const formInput = document.getElementById('form');
 const WIDTH = 400;
-const wrapper = document.getElementById('wrapper')
-const wrapper2 = document.getElementById('wrapper2')
-const wrapper3 = document.getElementById('wrapper3')
-const wrapper4 = document.getElementById('wrapper4')
+const img1 = document.getElementById('img1')
+const img2 = document.getElementById('img2')
+const img3 = document.getElementById('img3')
+const img4 = document.getElementById('img4')
 let new_Blob;
 let new_Blob2;
 let new_Blob3;
 let new_Blob4;
+const productImages = document.querySelectorAll(".product-images img")
+const productImageSlide = document.querySelector(".image-slider");
+let activeImageSlide = 0;
 
 
 //show resized photos before uploading
@@ -26,10 +29,6 @@ const previewPhoto = () => {
             previewImg.src = imgUrl;
                 previewImg.onload = (e) => {
                    
-                    if(wrapper.childElementCount > 0){
-                        
-                        wrapper.removeChild(document.getElementById("newImg"))
-                    }
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
@@ -38,11 +37,18 @@ const previewPhoto = () => {
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
                         new_Blob = blob;
-                        const new_Img = document.createElement("img");
-                        new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
-                        new_Img.src = url;
-                        wrapper.appendChild(new_Img);
+                        img1.src = url;
+                        productImageSlide.style.backgroundImage = `url('${img1.src}')`;
+                        productImages[activeImageSlide].classList.remove('active');
+                            img1.classList.add('active');
+                            activeImageSlide = 0
+                        img1.addEventListener("click", ()=>{
+                            productImages[activeImageSlide].classList.remove('active');
+                            img1.classList.add('active');
+                            productImageSlide.style.backgroundImage = `url('${img1.src}')`;
+                            activeImageSlide = 0;
+                        })
                         
                     },"image/jpeg", 90);
                 }  }  }  }
@@ -58,10 +64,6 @@ const previewPhoto2 = () => {
             previewImg.src = imgUrl;
                 previewImg.onload = (e) => {
                    
-                    if(wrapper2.childElementCount > 0){
-                        
-                        wrapper2.removeChild(document.getElementById("newImg"))
-                    }
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
@@ -73,8 +75,17 @@ const previewPhoto2 = () => {
                         const new_Img = document.createElement("img");
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
-                        new_Img.src = url;
-                        wrapper2.appendChild(new_Img);
+                        img2.src = url;
+                        productImageSlide.style.backgroundImage = `url('${img2.src}')`;
+                        productImages[activeImageSlide].classList.remove('active');
+                            img2.classList.add('active');
+                            activeImageSlide = 1
+                        img2.addEventListener("click", ()=>{
+                            productImages[activeImageSlide].classList.remove('active');
+                            img2.classList.add('active');
+                            productImageSlide.style.backgroundImage = `url('${img2.src}')`;
+                            activeImageSlide = 1;
+                        })
                         
                     },"image/jpeg", 90);
                 }  }  }  }
@@ -89,10 +100,6 @@ const previewPhoto3 = () => {
             previewImg.src = imgUrl;
                 previewImg.onload = (e) => {
                    
-                    if(wrapper3.childElementCount > 0){
-                        
-                        wrapper3.removeChild(document.getElementById("newImg"))
-                    }
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
@@ -104,8 +111,17 @@ const previewPhoto3 = () => {
                         const new_Img = document.createElement("img");
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
-                        new_Img.src = url;
-                        wrapper3.appendChild(new_Img);
+                        img3.src = url;
+                        productImageSlide.style.backgroundImage = `url('${img3.src}')`;
+                        productImages[activeImageSlide].classList.remove('active');
+                            img3.classList.add('active');
+                            activeImageSlide = 2
+                        img3.addEventListener("click", ()=>{
+                            productImages[activeImageSlide].classList.remove('active');
+                            img3.classList.add('active');
+                            productImageSlide.style.backgroundImage = `url('${img3.src}')`;
+                            activeImageSlide = 2;
+                        })
                         
                     },"image/jpeg", 90);
                 } } } }
@@ -121,11 +137,6 @@ const previewPhoto4 = () => {
             const imgUrl = event.target.result;
             previewImg.src = imgUrl;
                 previewImg.onload = (e) => {
-                   
-                    if(wrapper4.childElementCount > 0){
-                        
-                        wrapper4.removeChild(document.getElementById("newImg"))
-                    }
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
@@ -137,11 +148,21 @@ const previewPhoto4 = () => {
                         const new_Img = document.createElement("img");
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
-                        new_Img.src = url;
-                        wrapper4.appendChild(new_Img);
+                        img4.src = url;
+                        productImageSlide.style.backgroundImage = `url('${img4.src}')`;
+                        productImages[activeImageSlide].classList.remove('active');
+                            img4.classList.add('active');
+                            activeImageSlide = 3
+                        img4.addEventListener("click", ()=>{
+                            productImages[activeImageSlide].classList.remove('active');
+                            img4.classList.add('active');
+                            productImageSlide.style.backgroundImage = `url('${img4.src}')`;
+                            activeImageSlide = 3;
+                        })
                         
                     },"image/jpeg", 90);
                 } } } }  
+           
 
 fileInput.addEventListener('change', previewPhoto);
 fileInput2.addEventListener('change', previewPhoto2);

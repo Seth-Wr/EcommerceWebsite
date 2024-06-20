@@ -9,27 +9,22 @@
     <link rel="stylesheet" href="CSS/signup.css">
 </head>
 <body>
-    <img src="img/loader.gif" class="loader" alt="">
+    <nav class="navbar"> </nav>
+    <h1>Create Account</h1>
     <div class="container">
-        <input type="text" autocomplete="off" id="name" placeholder="name">
-        <input type="email" autocomplete="off" id="email" placeholder="email">
-        <input type="password" autocomplete="off" id="password" placeholder="password">
-        <input type="text" autocomplete="off" id="number" placeholder="number">
-        <input type="checkbox" checked class="checkbox" id="terms-and-cond">
-        <label for="terms-and-cond">agree to our <a href="">terms and conditions</a></label>
-        <br>
-        
-        <label for="seller">seller</label>
-        <input type="checkbox"  id="seller">
-        <br><br><br>
-        <input type="checkbox" class="checkbox" id="notification">
-        <label for="notification">recieve upcoming offers and events mails</a></label>
-        <button class="submit-btn">create account</button>
+        <div>
+            <input type="email" autocomplete="off" id="email" placeholder="email">
+            <input type="password" autocomplete="off" id="password" placeholder="password">
+            <input type="password" autocomplete="off" id="confirm-password" placeholder="confirm password">
+            <button class="submit-btn">create account</button>
+
+        </div>
+      
     </div>
    
     
     
-    <div>
+    <div class="login">
         <a href="/login" class="link">already have an account? Log in here</a>
     </div>
         
@@ -38,6 +33,9 @@
         <img src="img/error.png" alt="">
         <p class="alert-msg">Error message</p>
     </div>
+    <footer></footer>
+    <script src="JS/nav.js"></script>
+    <script src="JS/footer.js"></script>
     <script src="JS/form.js"></script>
 </body>
 </html>

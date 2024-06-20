@@ -16,10 +16,6 @@ const editShortDesInput = document.getElementById("editShortDesInput")
 const editShortDes = document.querySelector(".editShortDes")
 const editPriceInput = document.getElementById("editPriceInput")
 const editPrice = document.querySelector(".editPrice")
-//feature not avaible yet
-//const deleteSale = document.querySelector(".deleteSale")
-//const addSaleInput = document.getElementById("addSaleInput")
-//const addSale = document.querySelector(".addSale")
 const editDesInput = document.getElementById("editDesInput")
 const editDes = document.querySelector(".editDes")
 const deleteSizeBtn = document.querySelectorAll(".deleteSize")
@@ -60,7 +56,7 @@ const processData = (data) =>{
     
     createButtons(data.sizes_s,data.sizes_m,data.sizes_l)
 
-    delete_Btn.addEventListener('click', () => {
+  /*  delete_Btn.addEventListener('click', () => {
         fetch('/delete_product'+urlParam1+urlParam2+urlParam3+urlParam4,{
             method: 'delete',
             headers: {'Content-Type': 'application/json'}
@@ -73,7 +69,7 @@ const processData = (data) =>{
         }
         }).catch(err => alert("Unexpected Error"));
        
-    })
+    }) */
 
     editShortDes.addEventListener('click', () =>{
         const edit = editShortDesInput.value
@@ -120,36 +116,6 @@ const processData = (data) =>{
         
     })
 
-    
-     /*   deleteSale.addEventListener('click', () =>{
-            const input = {"edit": 0};
-            fetch('/editText'+"?column=sale_price"+"&imgId="+data.img1id,{
-                method: 'put',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
-                 if(res.status == 201) {
-                window.location.reload()
-            }
-        })
-
-        
-    
-    })
-    addSale.addEventListener('click', () =>{
-         
-        const edit = addSaleInput.value 
-            const input = {edit};
-            fetch('/editText'+"?column=sale_price"+"&imgId="+data.img1id,{
-                method: 'put',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
-                 if(res.status == 201) {
-                window.location.reload()
-            }
-        })
-        })   */
         deleteSizeBtn.forEach((item,i)=>{
             item.addEventListener('click', () =>{
             const edit = false 

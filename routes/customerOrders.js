@@ -12,12 +12,17 @@ const bucketName = process.env.bucketName
 const perOrder_Query = (product_id) => {
     return new Promise((resovle,reject) =>{
         pool.query(`SELECT imgid FROM products WHERE id =$1`,[product_id],(err,results)=>{
-            if(err){
+            try{   if(err){
                 console.log("error message " + err)
                 reject(err) 
             }
             resovle(results.rows[0].imgid)
-          })
+            }  
+            catch(error){console.error(error)} 
+        
+        })
+           
+         
     })
 }
 

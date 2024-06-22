@@ -182,7 +182,7 @@ const display_Stripe_Events = async()=>{
       for(i = 0; i < events.data.length; i++){
         const payment_id = events.data[i].data.object.payment_intent
         const query = await orderExist_Query(payment_id)
-        
+        //need to check if email is sent before sending
         if(query.rowCount < 1 ){
            await order_Not_Found(events.data[i])
         

@@ -22,9 +22,7 @@ router.put('/',async (req,res) =>{
             const cartJson = JSON.stringify(cart)
             pool.query(`update userCart set cart = ('${cartJson}') where userid = '${req.user.id}'`, (error,response) =>{
                 if(!error){
-                    console.log(response)
                     res.send(cart)
-                    console.log(cart)
                 }
                 else{
                     console.log(error)

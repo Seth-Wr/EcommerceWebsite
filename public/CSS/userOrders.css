@@ -66,3 +66,11 @@ body{
     padding-top: 2%;
     padding-bottom: 2%;
 }
+@media (max-width: 550px){
+    .order-items{
+        display: grid;
+        grid-template-columns: 1fr;
+        
+    }
+   
+}

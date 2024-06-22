@@ -80,3 +80,11 @@ visibility: hidden;
 .ship_P{
     visibility: hidden;
 }
+@media (max-width: 550px){
+    .order-items{
+        display: grid;
+        grid-template-columns: 1fr;
+        
+    }
+   
+}

@@ -27,9 +27,11 @@ const createSection = (url,desc,brand,price,imgId) =>{
            
         </div>
         <div class="product-info">
+            
             <h2 class="product-brand">${brand}</h2>
             <p class="product-short-des">${desc}</p>
             <span class="price">${price}</span>
+            
         </div>
     </div>
     `)

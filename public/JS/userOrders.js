@@ -1,4 +1,13 @@
 const orders = document.getElementById("user_Orders");
+function showAlert(msg){
+  let alertBox = document.querySelector('.alert-box');
+  let alertMsg = document.querySelector('.alert-msg');
+  alertMsg.innerHTML = msg;
+  alertBox.classList.add('show');
+  setTimeout(() =>{
+      alertBox.classList.remove('show');
+  }, 1000);
+}
 
 
 
@@ -105,4 +114,4 @@ fetch('/customerOrders').then((res) => {
     else{
         console.log("failed request")
     }
-}).catch(err => alert("Unexpected Error")); 
+}).catch(err => showAlert("Failed to load")); 

@@ -35,7 +35,7 @@ fetch('/getUserSession').then((res) =>  {
         document.getElementById('logoutBtn').addEventListener('click', ()=>{
             fetch('/logout').then((res)=>{
                 window.location.href = res.url
-            }).catch(err => alert("Unexpected Error"));
+            }).catch(err => showAlert("Unexpected Error"));
         })
 
    }else{
@@ -43,7 +43,7 @@ fetch('/getUserSession').then((res) =>  {
             document.getElementById('loginBtn').addEventListener('click', ()=>{
                 fetch('/login').then((res)=>{
                     window.location.href = res.url
-                }).catch(err => alert("Unexpected Error"));
+                }).catch(err => showAlert("Unexpected Error"));
             })
     }  
     

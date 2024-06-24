@@ -12,7 +12,7 @@ router.get('/', async(req, res) =>{
         const product = {} ;
         const imgId = req.query.imgId;
         const query = new Promise((resolve, reject) => {
-            let insertQuery = `select img1id, img2id, img3id, img4id, description, brand, price, category,short_description,sale_price,sizes_s,sizes_m,sizes_l from products inner join product_pictures on (products.imgid = product_pictures.img1id) where imgid = '${imgId}'`
+            let insertQuery = `select img1id, img2id, img3id, img4id, description, brand, price, category,short_description,sale_price,sizes_s,sizes_m,sizes_l,sold_out from products inner join product_pictures on (products.imgid = product_pictures.img1id) where imgid = '${imgId}'`
             pool.query(insertQuery, (err, response) =>{
                 if(!err){
                     resolve(response)
@@ -51,6 +51,7 @@ router.get('/', async(req, res) =>{
                 product['sizes_s'] = data.rows[0]['sizes_s']
                 product['sizes_m'] = data.rows[0]['sizes_m']
                 product['sizes_l'] = data.rows[0]['sizes_l']
+                product['sold_out'] = data.rows[0]['sold_out']
             res.send(product);
             
         }).catch((message) => {

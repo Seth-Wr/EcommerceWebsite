@@ -18,6 +18,7 @@ pool.query(insertQuery, (err, response) =>{
         
     }
     else{
+        res.sendStatus(400)
         console.log(err.message)
     }
 }) 

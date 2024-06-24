@@ -46,13 +46,13 @@ fetch('/getUserSession').then((res) =>  {
         document.getElementById('logoutBtn').addEventListener('click', ()=>{
             fetch('/logout').then((res)=>{
                 window.location.href = res.url
-            }).catch(err => alert("Unexpected Error"));
+            }).catch(err => showAlert("Unexpected Error"));
         })
         document.getElementById('myOrders').innerHTML =`<button id="ordersBtn">My Orders</button>`
         document.getElementById('ordersBtn').addEventListener('click', ()=>{
             fetch('/userOrders').then((res)=>{
                 window.location.href = res.url
-            }).catch(err => alert("Unexpected Error"));
+            }).catch(err => showAlert("Unexpected Error"));
         })
 
    }else{
@@ -60,7 +60,7 @@ fetch('/getUserSession').then((res) =>  {
             document.getElementById('loginBtn').addEventListener('click', ()=>{
                 fetch('/login').then((res)=>{
                     window.location.href = res.url
-                }).catch(err => alert("Unexpected Error"));
+                }).catch(err => showAlert("Unexpected Error"));
             })
     }  
     
@@ -73,7 +73,7 @@ fetch('/getUserSession').then((res) =>  {
             document.querySelector(".total-price").textContent = res.totalPrice;
         }
         
-    }).catch(err => alert("Unexpected Error"));
+    }).catch(err => showAlert("Unexpected Error"));
 })
 }
 

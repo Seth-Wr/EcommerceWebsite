@@ -1,6 +1,15 @@
 const shoppingCart = document.getElementById("shopping-cart");
 const sections = [];
 const checkoutBtn = document.getElementById("checkout-btn");
+function showAlert(msg){
+  let alertBox = document.querySelector('.alert-box');
+  let alertMsg = document.querySelector('.alert-msg');
+  alertMsg.innerHTML = msg;
+  alertBox.classList.add('show');
+  setTimeout(() =>{
+      alertBox.classList.remove('show');
+  }, 1000);
+}
 
 const proccessData = (data) =>{
     for(let i =0;i < data.length; i++){
@@ -45,7 +54,7 @@ const proccessData = (data) =>{
           if(res.status == 201){
             window.location.reload();
           }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert("Error"));
 
       })       
       })
@@ -70,7 +79,7 @@ const proccessData = (data) =>{
               document.querySelector(".totalItems").textContent ++;
               document.querySelector('.total-price').textContent = newTotalPrice
          } 
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert("Error"));
         })
       })
 
@@ -105,7 +114,7 @@ const proccessData = (data) =>{
                 })
               } 
             }
-          }).catch(err => alert("Unexpected Error"));
+          }).catch(err => showAlert("Error"));
         })
       })
 
@@ -135,7 +144,7 @@ const proccessData = (data) =>{
                 
                return window.location.reload();
               }
-            }).catch(err => alert("Unexpected Error"));
+            }).catch(err => showAlert("Error"));
           }
           else{
             fetch('/inputChangeCart'+urlParams+"&inputQty="+item.value,{
@@ -150,7 +159,7 @@ const proccessData = (data) =>{
                   document.querySelector('.total-price').textContent = res.totalPrice        
                 })
               }
-            }).catch(err => alert("Unexpected Error"));
+            }).catch(err => showAlert("Error"));
           } 
         
           })
@@ -224,7 +233,7 @@ checkoutBtn.addEventListener('click',() =>{
     body: JSON.stringify( getThumb(document.querySelectorAll('.product-thumb'))),
   }).then((res) => res.json())
   .then((res) => window.location.href = res.url)
-  .catch(err => alert("Unexpected Error")); })
+  .catch(err => showAlert("Error")); })
 
 fetch('/shoppingCart').then((res) => {
     if(res.status == 200){
@@ -235,5 +244,5 @@ fetch('/shoppingCart').then((res) => {
     else{
         console.log("failed request")
     }
-}).catch(err => alert("Unexpected Error")); 
+}).catch(err => showAlert("Error")); 
 

@@ -12,6 +12,15 @@ const param1 = urlParams.get('imgId')
 const size_Btns = [];
 const size_Buttons = document.querySelector(".size_Buttons")
 const addToCartBtn = document.querySelector(".cart-btn")
+function showAlert(msg){
+    let alertBox = document.querySelector('.alert-box');
+    let alertMsg = document.querySelector('.alert-msg');
+    alertMsg.innerHTML = msg;
+    alertBox.classList.add('show');
+    setTimeout(() =>{
+        alertBox.classList.remove('show');
+    }, 1000);
+}
 
 
 
@@ -104,7 +113,7 @@ addToCartBtn.addEventListener('click', () => {
            
             document.querySelector(".badge").textContent = res.totalQty;
         
-        }).catch(err => alert("Unexpected Error"));  
+        }).catch(err => showAlert('Failed to add to cart'));  
     }
     else{
         const size = {size: "NA"}
@@ -117,7 +126,7 @@ addToCartBtn.addEventListener('click', () => {
            
             document.querySelector(".badge").textContent = res.totalQty;
         
-        }).catch(err => alert("Unexpected Error")); 
+        }).catch(err => showAlert('Failed to add to cart')); 
     }
      
     
@@ -131,7 +140,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => alert("Unexpected Error"));
+    .catch(err => showAlert("Failed to load"));
     };
     
 

@@ -11,7 +11,7 @@ const urlParams = new URLSearchParams(myKeysValues);
 const param1 = urlParams.get('imgId')
 const size_Btns = [];
 const size_Buttons = document.querySelector(".size_Buttons")
-const delete_Btn = document.querySelector(".delete_Btn")
+const sold_out_Btn = document.querySelector(".sold_out_Btn")
 const editShortDesInput = document.getElementById("editShortDesInput")
 const editShortDes = document.querySelector(".editShortDes")
 const editPriceInput = document.getElementById("editPriceInput")
@@ -27,6 +27,16 @@ const submitBtns = document.querySelector(".submitBtns")
 const imgEventInstance = []
 const imgIds = []
 let activeImgId
+function showAlert(msg){
+    let alertBox = document.querySelector('.alert-box');
+    let alertMsg = document.querySelector('.alert-msg');
+    alertMsg.innerHTML = msg;
+    alertBox.classList.add('show');
+    setTimeout(() =>{
+        alertBox.classList.remove('show');
+    }, 1000);
+}
+
 
 
 const processData = (data) =>{
@@ -42,6 +52,11 @@ const processData = (data) =>{
     imgIds.push(data.img1id,data.img2id,data.img3id,data.img4id)
     activeImgId = imgIds[0]
     productImageSlide.style.backgroundImage = `url('${data.img1idurl}')`;
+    if(data.sold_out == true){
+        document.querySelector(".sold_out_text").classList.add("sold_out")
+        sold_out_Btn.value = `false`
+        sold_out_Btn.innerHTML = `Restock`
+    }
     if (data.sale_price == null || data.sale_price == 0){
         sale_price.textContent = data.price
     }
@@ -50,26 +65,24 @@ const processData = (data) =>{
         price.textContent = data.price
     }
     const urlParam1 = "?imgId="+ data.img1id
-    const urlParam2 =  "&img2Id="+ data.img2id
-    const urlParam3 = "&img3Id="+ data.img3id
-    const urlParam4 = "&img4Id="+ data.img4id
     
     createButtons(data.sizes_s,data.sizes_m,data.sizes_l)
 
-  /*  delete_Btn.addEventListener('click', () => {
-        fetch('/delete_product'+urlParam1+urlParam2+urlParam3+urlParam4,{
-            method: 'delete',
+    sold_out_Btn.addEventListener('click', () => {
+        const urlParam2 = `&sold_out=`+ sold_out_Btn.value.toString()
+        fetch('/sold_out_product'+urlParam1 + urlParam2,{
+            method: 'put',
             headers: {'Content-Type': 'application/json'}
         })
         .then((res) => { if(res.status == 201){
-            window.location.replace("http://localhost:3000/seller")
+            window.location.reload()
         }
         else{
             
         }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert("Unexpected Error"));
        
-    }) */
+    }) 
 
     editShortDes.addEventListener('click', () =>{
         const edit = editShortDesInput.value
@@ -83,7 +96,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert('Failed to edit'));
         
          
     })
@@ -98,7 +111,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert('Failed to edit'));
         
     })
     editPrice.addEventListener('click', () =>{
@@ -112,7 +125,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert('Failed to edit'));
         
     })
 
@@ -128,7 +141,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert('Failed to edit'));
             })
         })
         addSizeBtn.forEach((item,i)=>{
@@ -143,7 +156,7 @@ const processData = (data) =>{
                  if(res.status == 201) {
                 window.location.reload()
             }
-        }).catch(err => alert("Unexpected Error"));
+        }).catch(err => showAlert('Failed to edit'));
             })
         })
         editImgBtn.addEventListener('change', previewPhoto);
@@ -206,7 +219,7 @@ const previewPhoto = () => {
                             if (res.status == 201){
                                 window.location.reload()
                             }
-                        }).catch(err => alert("Unexpected Error"));
+                        }).catch(err => showAlert('Failed to edit'));
                             
                         })
                         cancelBtn.addEventListener('click', () =>{
@@ -271,7 +284,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => alert("Unexpected Error"));
+    .catch(err => showAlert('Failed to load'));
     };
     
 

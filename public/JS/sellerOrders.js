@@ -1,4 +1,13 @@
 const orders = document.getElementById("user_Orders");
+function showAlert(msg){
+  let alertBox = document.querySelector('.alert-box');
+  let alertMsg = document.querySelector('.alert-msg');
+  alertMsg.innerHTML = msg;
+  alertBox.classList.add('show');
+  setTimeout(() =>{
+      alertBox.classList.remove('show');
+  }, 1000);
+}
 
 
 const yes_or_no = (element) =>{
@@ -34,7 +43,7 @@ const yes_or_no = (element) =>{
           }).then((res) => {
             if(res.status == 200){
             window,location.reload()}
-            else{alert("Failed to Confirm shipment error")}
+            else{showAlert("Failed to Confirm shipment error")}
           })   
         })
     })
@@ -157,4 +166,4 @@ fetch('/sellersOrders').then((res) => {
     else{
         console.log("failed request")
     }
-}).catch(err => alert("Unexpected Error")); 
+}).catch(err => showAlert("Failed to load")); 

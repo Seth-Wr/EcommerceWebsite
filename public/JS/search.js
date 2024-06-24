@@ -1,6 +1,17 @@
 const section = document.querySelector('.product-container');
 const sections = [];
 const myKeysValues = window.location.search;
+function showAlert(msg){
+    let alertBox = document.querySelector('.alert-box');
+    let alertMsg = document.querySelector('.alert-msg');
+    alertMsg.innerHTML = msg;
+    alertBox.classList.add('show');
+
+    setTimeout(() =>{
+        alertBox.classList.remove('show');
+    }, 1000);
+}
+
 
 const processData = async(data) =>{
     for(let i=0; i < data.length; i++){
@@ -41,7 +52,7 @@ const startFunction = () =>{
     fetch('/products'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => alert("Unexpected Error"));
+    .catch(err => showAlert("Failed to load"));
     };
     
 

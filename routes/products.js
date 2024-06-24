@@ -15,7 +15,7 @@ router.get('/', async(req, res) =>{
         const category = req.query.Category;
         const productList = new Array;
         const query = new Promise((resolve, reject) => {
-            let insertQuery = `select * from products where category = '${category}'`
+            let insertQuery = `select * from products where category = '${category}' AND sold_out= false`
             pool.query(insertQuery, (err, response) =>{
                 if(!err){
                     resolve(response)

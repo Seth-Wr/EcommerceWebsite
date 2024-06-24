@@ -15,6 +15,15 @@ let new_Blob4;
 const productImages = document.querySelectorAll(".product-images img")
 const productImageSlide = document.querySelector(".image-slider");
 let activeImageSlide = 0;
+function showAlert(msg){
+    let alertBox = document.querySelector('.alert-box');
+    let alertMsg = document.querySelector('.alert-msg');
+    alertMsg.innerHTML = msg;
+    alertBox.classList.add('show');
+    setTimeout(() =>{
+        alertBox.classList.remove('show');
+    }, 1000);
+}
 
 
 //show resized photos before uploading
@@ -217,7 +226,7 @@ window.onload = formInput.addEventListener
         body: formData,
         
         }).then((res) => window.location.reload())
-        .catch(err => alert("Unexpected Error"));
+        .catch(err => showAlert('Failed to upload'));
         
 
      

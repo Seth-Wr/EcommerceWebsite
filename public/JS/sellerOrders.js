@@ -71,13 +71,13 @@ const create_Order = (shipping,payment_id,order_price,date,order_status,sections
 const front = new String(`<div class="order">
  <div class="order-info">
 <span class="date order-text">Date: ${date}</span><br>
-<label for="order_id">Order ID:   </label><span class="order_id order-text">${payment_id}</span>
+<label for="order_id" class="order-text">Order ID:   </label><span class="order_id order-text">${payment_id}</span>
 
 <br>
 <span class="order-text">Total Quantity: ${totalQty}</span>
 <br > <span class="order_price order-text">Order Total: ${order_price}</span><br>
 <span class="order_status order-text">${shipping_status.toString()}</span>
-<p class="email">${email}</p>
+<p class="email order-text">${email}</p>
 <p class="shipping order-text">Shipping: ${shipping.address.city +" "+ shipping.address.line1 +" "+ shipping.address.state +" "+ shipping.address.country +" "+ shipping.address.postal_code}</p>
 ${shippingBtns}
 </div>  <div class="order-items"> `)

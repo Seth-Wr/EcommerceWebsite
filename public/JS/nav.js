@@ -1,38 +1,64 @@
 
-
-const createNav = () => {
 let nav = document.querySelector('.navbar');
+const createNav = () => {
+
 
 nav.innerHTML = `
-<a href="index.html" class="logo">
-        <img src="img/logo.jpg" alt="">
-    </a>
+    
         <div class="nav-items">
+        <a class="mobile-home" href="/index.html">Propa Tingz</a>
+            
+        <div class="ham-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+        </div>
             <ul class="links-container">
+                <li><a href="/index.html">Home</a></li>
+                <li>   <a href="/userCart">
+                <i class="shoppingCart"></i> Shopping Cart <span class="badge"></span>
+             </a>
+               </li>
+                <li id="myOrders"></li>
+                
                 <li><a href="/search?Category=swim_suits">Swim Suits</a></li>
                 <li><a href="search.html?Category=full_sets">Sets</a></li>
                 <li><a href="search.html?Category=tops">Tops</a></li>
                 <li><a href="search.html?Category=bottoms">Bottoms</a></li>
                 <li><a href="search.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                <li id="logout"></li>
+                <li id="login"></li>
+                
             </ul>
+            
+           
+           
         </div> 
-        <div class="nav-User-Btns">
-        <a href="/userCart">
-        <i class="shoppingCart"></i> Shopping Cart <span class="badge"></span>
-     </a>
-       
-        <div id="myOrders"></div>
-        <div id="logout"></div>
-        <div id="login"></div>
+        
+     
+        
+        
+        
 
     
-     </div>
+     
 `;
 }
 console.log("created")
 
 createNav();
 
+const ham_menu = document.querySelector(".ham-menu")
+const navlinks = document.querySelector(".links-container")
+const ham_menu_Active = ham_menu.classList
+ham_menu.addEventListener('click', () =>{
+
+        ham_menu.classList.toggle("active");
+        navlinks.classList.toggle("active");
+        nav.classList.toggle("active");
+    
+    
+})
 
 const getUserSession = async() =>{ 
 fetch('/getUserSession').then((res) =>  {

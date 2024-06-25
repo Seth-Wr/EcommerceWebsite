@@ -6,8 +6,17 @@ input::-webkit-inner-spin-button {
 input[type=number]{
     -moz-appearance: textfield;
 }
+
 body{
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  
+
+}
+nav{
+    height: 50px;
 }
 .navbar{
     
@@ -17,29 +26,43 @@ body{
     align-items: center;
     justify-content: space-between;
     padding-bottom:  15px;
-    background: #eec0c8;
+    background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
     overflow: hidden;
     z-index: 30;
     }
 
-    .logo img{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 70px;
-        height: 70px;
+    
+    
+    .mobile-home{
+        display: none;
+        overflow: hidden;
+        width: 100%;
     }
-    
-    
     
     .links-container{
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 10px;
     }
     
-    
+    #logoutBtn, #ordersBtn,#loginBtn{
+         text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        color: black;
+        border:none;
+        background-color:transparent;
+        outline:none;
+        padding: 0;
+    }
+
+     #logoutBtn:hover, #ordersBtn:hover,#loginBtn:hover{
+            color: deeppink;
+        transition: 0.3s ease;
+    }
+
     .navbar li{
         list-style: none;
         padding: 0 20px;
@@ -57,18 +80,76 @@ body{
         color: deeppink;
         transition: 0.3s ease;
     }
-    .navbar .logo {
-        width: 30px;
-        height: 30px;
-        color: blue;
-        padding: 15px;
-    }   
-    .nav-User-Btns{
-        display: flex;
-        justify-content: center;
-    }
+  
+ 
 
-    #myOrders{
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+    @media (max-width: 780px) {
+      
+        .mobile-home{
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 25px;
+            font-weight: 600;
+            color: black;
+            border:none;
+            background-color:transparent;
+            outline:none;
+            padding: 0;
+            
+        }
+        .ham-menu{
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 5;
+        }
+        .ham-menu span{
+            
+            display: inline-block;
+            height: 3px;
+            width: 100%;
+            background-color: black;
+            margin-bottom: 5px;
+            
+            
+        }
+        .links-container{
+            display: none;
+            overflow: hidden;
+        }
+
+        .ham-menu.active span{
+            
+       
+           
+            
+            padding: 2px;
+            transition: ease;
+        }
+        
+
+       
+     
+            .navbar.active{
+            
+                height: 250px;
+                
+                
+            }
+            
+            .links-container.active{
+                gap: 7px; 
+                display: flex;
+                flex-direction: column;
+                justify-content: right;
+               
+                height: 200px;
+            }  
+        
+       
+      }

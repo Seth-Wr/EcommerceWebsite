@@ -3,7 +3,9 @@
 body{
     background-color:cornsilk;
 }
-
+.title{
+    text-align: center;
+}
 .item{
     display: flex;
     justify-content: center;
@@ -75,7 +77,8 @@ background-color:  cornsilk;
     position: absolute;
     top: 40%;
     left: 0;
-     background-color: pink;
+    background-image: linear-gradient(to right, green,gold,red);
+
      height: 20%;
      width: 100%;
      margin-top: 7%;
@@ -124,7 +127,7 @@ background-color:  cornsilk;
     #checkout-btn{
         position: static;
         
-         background-color: pink;
+        background-image: linear-gradient(to right, green,gold,red);
          height: 50px;
          width: 50%;
          margin-top: 7%;

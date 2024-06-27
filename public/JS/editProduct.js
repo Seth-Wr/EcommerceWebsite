@@ -27,6 +27,7 @@ const submitBtns = document.querySelector(".submitBtns")
 const imgEventInstance = []
 const imgIds = []
 let activeImgId
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
@@ -78,7 +79,7 @@ const processData = (data) =>{
             window.location.reload()
         }
         else{
-            
+            showAlert('Failed to edit')
         }
         }).catch(err => showAlert("Unexpected Error"));
        
@@ -92,9 +93,12 @@ const processData = (data) =>{
                 method: 'put',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
+            }).then((res) => { 
                  if(res.status == 201) {
                 window.location.reload()
+            }
+            else{
+                showAlert('Failed to edit')
             }
         }).catch(err => showAlert('Failed to edit'));
         
@@ -107,9 +111,11 @@ const processData = (data) =>{
                 method: 'put',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
+            }).then((res) => { 
                  if(res.status == 201) {
                 window.location.reload()
+            } else{
+                showAlert('Failed to edit')
             }
         }).catch(err => showAlert('Failed to edit'));
         
@@ -121,9 +127,11 @@ const processData = (data) =>{
                 method: 'put',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
+            }).then((res) => { 
                  if(res.status == 201) {
                 window.location.reload()
+            } else{
+                showAlert('Failed to edit')
             }
         }).catch(err => showAlert('Failed to edit'));
         
@@ -137,9 +145,11 @@ const processData = (data) =>{
                 method: 'put',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
+            }).then((res) => { 
                  if(res.status == 201) {
                 window.location.reload()
+            } else{
+                showAlert('Failed to edit')
             }
         }).catch(err => showAlert('Failed to edit'));
             })
@@ -152,15 +162,17 @@ const processData = (data) =>{
                 method: 'put',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(input)
-            }).then((res) => { console.log(res)
+            }).then((res) => { 
                  if(res.status == 201) {
                 window.location.reload()
+            } else{
+                showAlert('Failed to edit')
             }
         }).catch(err => showAlert('Failed to edit'));
             })
         })
         editImgBtn.addEventListener('change', previewPhoto);
-
+        loader.style.display = "none";
 
     }
 const imageSlide = (item,i) => {
@@ -209,7 +221,6 @@ const previewPhoto = () => {
                         const submitBtn = document.querySelector(".submitBtn")
                         const cancelBtn = document.querySelector(".cancelBtn")
                         submitBtn.addEventListener('click', () => {
-                            console.log("submit")
                             const formData = new FormData();
                             formData.append('file', new_Blob)
                             fetch('/editProductImg'+"?imgId="+activeImgId,{
@@ -223,7 +234,6 @@ const previewPhoto = () => {
                             
                         })
                         cancelBtn.addEventListener('click', () =>{
-                            console.log("cancel")
                             productImageSlide.style.backgroundImage = `url('${document.querySelector(".active").src}')`
                             imgEventListeners();
                             submitBtn.remove();
@@ -284,7 +294,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => showAlert('Failed to load'));
+    .catch(err => {   loader.style.display = "none"; showAlert('Failed to load')});
     };
     
 

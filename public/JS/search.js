@@ -1,6 +1,7 @@
 const section = document.querySelector('.product-container');
 const sections = [];
 const myKeysValues = window.location.search;
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
@@ -25,6 +26,7 @@ const processData = async(data) =>{
     const html = sections.toString()
     const finalhtml = html.replace(/,/g, "")
     section.innerHTML = finalhtml;
+    loader.style.display = 'none';
 }
 
 
@@ -52,7 +54,7 @@ const startFunction = () =>{
     fetch('/products'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => showAlert("Failed to load"));
+    .catch(err => {loader.style.display = "none"; showAlert("Failed to load")});
     };
     
 

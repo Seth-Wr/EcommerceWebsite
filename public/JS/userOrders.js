@@ -1,4 +1,5 @@
 const orders = document.getElementById("user_Orders");
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
   let alertBox = document.querySelector('.alert-box');
   let alertMsg = document.querySelector('.alert-msg');
@@ -66,7 +67,7 @@ const proccessData = (data) =>{
     const html = ordersList.toString()
     const finalhtml = html.replace(/,/g, "")
     orders.innerHTML = finalhtml;
-    
+    loader.style.display = "none"    
 }
 
 
@@ -112,6 +113,7 @@ fetch('/customerOrders').then((res) => {
         })
     }
     else{
-        console.log("failed request")
+      loader.style.display = "none";
+      showAlert("Failed to load")
     }
-}).catch(err => showAlert("Failed to load")); 
+}).catch(err =>{ loader.style.display = "none"; showAlert("Failed to load")}); 

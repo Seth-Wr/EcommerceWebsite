@@ -12,6 +12,7 @@ const param1 = urlParams.get('imgId')
 const size_Btns = [];
 const size_Buttons = document.querySelector(".size_Buttons")
 const addToCartBtn = document.querySelector(".cart-btn")
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
@@ -43,6 +44,7 @@ const processData = (data) =>{
     }
  
    createButtons(data.sizes_s,data.sizes_m,data.sizes_l)
+   loader.style.display = 'none';
 }
 productImages.forEach((item, i) =>{
     item.addEventListener('click', () => {
@@ -98,8 +100,11 @@ const createButtons = (small, medium, large) =>{
     })
 })    
 addToCartBtn.addEventListener('click', () => {
+    loader.style.display = 'flex';
     if(sizeInput == true  && !document.querySelector(".radio-btn.check")){
-        console.log("pick a size")
+        loader.style.display = "none";
+        showAlert('Please pick a Size')
+
 
     }
     else if(document.querySelectorAll(".radio-btn")  && document.querySelector(".radio-btn.check")){
@@ -112,8 +117,8 @@ addToCartBtn.addEventListener('click', () => {
            }).then((res) => res.json()).then((res) => {
            
             document.querySelector(".badge").textContent = res.totalQty;
-        
-        }).catch(err => showAlert('Failed to add to cart'));  
+            loader.style.display = 'none';
+        }).catch(err => {  loader.style.display = 'none'; showAlert('Failed to add to cart')});  
     }
     else{
         const size = {size: "NA"}
@@ -125,8 +130,8 @@ addToCartBtn.addEventListener('click', () => {
            }).then((res) => res.json()).then((res) => {
            
             document.querySelector(".badge").textContent = res.totalQty;
-        
-        }).catch(err => showAlert('Failed to add to cart')); 
+            loader.style.display = 'none';
+        }).catch(err =>  { loader.style.display = 'none'; showAlert('Failed to add to cart')}); 
     }
      
     
@@ -140,7 +145,7 @@ const startFunction = () =>{
     fetch('/product_page'+myKeysValues)
     .then((res) => res.json())
     .then((res) => processData(res))
-    .catch(err => showAlert("Failed to load"));
+    .catch(err => { loader.style.display = "none"; showAlert("Failed to load")});
     };
     
 

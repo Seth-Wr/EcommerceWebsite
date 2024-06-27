@@ -15,6 +15,7 @@ let new_Blob4;
 const productImages = document.querySelectorAll(".product-images img")
 const productImageSlide = document.querySelector(".image-slider");
 let activeImageSlide = 0;
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
     let alertBox = document.querySelector('.alert-box');
     let alertMsg = document.querySelector('.alert-msg');
@@ -25,6 +26,7 @@ function showAlert(msg){
     }, 1000);
 }
 
+loader.style.display = "none"
 
 //show resized photos before uploading
 const previewPhoto = () => {
@@ -180,6 +182,7 @@ fileInput4.addEventListener('change', previewPhoto4);
 
 window.onload = formInput.addEventListener
     ('submit', (e) => {
+        loader.style.display = 'flex';
      e.preventDefault();
      const size_s = document.getElementById('size_s');
      const size_m = document.getElementById('size_m');
@@ -225,8 +228,8 @@ window.onload = formInput.addEventListener
         method: 'post',
         body: formData,
         
-        }).then((res) => window.location.reload())
-        .catch(err => showAlert('Failed to upload'));
+        }).then((res) => window.location.href = "/seller")
+        .catch(err => {   loader.style.display = "none"; showAlert('Failed to upload')});
         
 
      
@@ -235,4 +238,4 @@ window.onload = formInput.addEventListener
 
 
 
-
+       

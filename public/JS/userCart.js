@@ -1,6 +1,7 @@
 const shoppingCart = document.getElementById("shopping-cart");
 const sections = [];
 const checkoutBtn = document.getElementById("checkout-btn");
+const loader = document.querySelector(".loader-container")
 function showAlert(msg){
   let alertBox = document.querySelector('.alert-box');
   let alertMsg = document.querySelector('.alert-msg');
@@ -43,10 +44,10 @@ const proccessData = (data) =>{
     if(document.querySelectorAll(".deleteBtn")){
       document.querySelectorAll(".deleteBtn").forEach((item,i) =>{
       item.addEventListener('click', () =>{
+        loader.style.display ="flex";
         const urlLink = data[i].imgId
         const size = data[i].size
         const urlParams = "?imgId=" + urlLink +"&size="+size
-        console.log(urlParams)
         fetch('/deleteCartItem'+urlParams,{
           method: 'delete',
           headers: {'Content-Type': 'application/json'}
@@ -54,7 +55,8 @@ const proccessData = (data) =>{
           if(res.status == 201){
             window.location.reload();
           }
-        }).catch(err => showAlert("Error"));
+          else {loader.style.display ="none"; showAlert("Error")}
+        }).catch(err => {loader.style.display ="none"; showAlert("Error")});
 
       })       
       })
@@ -62,6 +64,7 @@ const proccessData = (data) =>{
     if(document.querySelectorAll(".plus-btn")){
       document.querySelectorAll(".plus-btn").forEach((item,i) =>{
         item.addEventListener('click', ()=>{
+          loader.style.display ="flex";
           const urlLink = data[i].imgId
           const size = data[i].size
           const urlParams = "?imgId=" + urlLink +"&size="+size
@@ -70,7 +73,6 @@ const proccessData = (data) =>{
             headers: {'Content-Type': 'application/json'}
           }).then((res) =>{
             if(res.status == 201){
-              console.log(document.querySelectorAll('.price')[i].childNodes[3].textContent)
               let newPrice = parseInt(document.querySelectorAll('.price')[i].childNodes[3].textContent) + data[i].unitPrice
               let newTotalPrice = parseInt(document.querySelector('.total-price').textContent) + data[i].unitPrice
               document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice
@@ -78,8 +80,9 @@ const proccessData = (data) =>{
               document.querySelector(".badge").textContent ++;
               document.querySelector(".totalItems").textContent ++;
               document.querySelector('.total-price').textContent = newTotalPrice
-         } 
-        }).catch(err => showAlert("Error"));
+              loader.style.display ="none";
+         }else { loader.style.display ="none"; showAlert("Error")} 
+        }).catch(err => { loader.style.display ="none"; showAlert("Error")});
         })
       })
 
@@ -88,6 +91,7 @@ const proccessData = (data) =>{
     if(document.querySelectorAll(".minus-btn")){
       document.querySelectorAll(".minus-btn").forEach((item,i) =>{
         item.addEventListener('click', ()=>{
+          loader.style.display ="flex";
           const urlLink = data[i].imgId
           const size = data[i].size
           const urlParams = "?imgId=" + urlLink +"&size="+size
@@ -103,6 +107,7 @@ const proccessData = (data) =>{
               document.querySelector(".badge").textContent --;
               document.querySelector(".totalItems").textContent --;
               document.querySelector('.total-price').textContent = newTotalPrice
+              loader.style.display ="none";
               if(document.querySelectorAll(".qtyInput")[i].value == 0){
                 fetch('/deleteCartItem'+urlParams,{
                   method: 'delete',
@@ -110,11 +115,11 @@ const proccessData = (data) =>{
                 }).then((res) =>{
                   if(res.status == 201){
                     window.location.reload();
-                  }
+                  }else { loader.style.display ="none"; showAlert("Error")}
                 })
               } 
-            }
-          }).catch(err => showAlert("Error"));
+            }else { loader.style.display ="none"; showAlert("Error")}
+          }).catch(err => { loader.style.display ="none"; showAlert("Error")});
         })
       })
 
@@ -131,7 +136,7 @@ const proccessData = (data) =>{
           
         })
         item.addEventListener('change', () =>{
-          
+          loader.style.display = "flex";
           const urlLink = data[i].imgId
           const size = data[i].size
           const urlParams = "?imgId=" + urlLink +"&size="+size
@@ -144,7 +149,10 @@ const proccessData = (data) =>{
                 
                return window.location.reload();
               }
-            }).catch(err => showAlert("Error"));
+              else{
+                loader.style.display ="none"; showAlert("Error")
+              }
+            }).catch(err => { loader.style.display ="none"; showAlert("Error")});
           }
           else{
             fetch('/inputChangeCart'+urlParams+"&inputQty="+item.value,{
@@ -156,16 +164,19 @@ const proccessData = (data) =>{
                   document.querySelectorAll('.price')[i].childNodes[3].textContent = res.itemPrice
                   document.querySelector(".badge").textContent = res.totalQty;
                   document.querySelector(".totalItems").textContent = res.totalQty;
-                  document.querySelector('.total-price').textContent = res.totalPrice        
+                  document.querySelector('.total-price').textContent = res.totalPrice      
+                  loader.style.display ="none";  
                 })
+              } else{
+                loader.style.display ="none"; showAlert("Error")
               }
-            }).catch(err => showAlert("Error"));
+            }).catch(err => {  loader.style.display ="none"; showAlert("Error")});
           } 
         
           })
       })
     }
-
+    loader.style.display = 'none';
 }
 
 
@@ -225,6 +236,7 @@ const getThumb = (element) =>{
 
 
 checkoutBtn.addEventListener('click',() =>{
+  loader.style.display = "flex";
   fetch('/create-checkout-session',{
     method:'post',
     mode: 'cors',
@@ -232,8 +244,8 @@ checkoutBtn.addEventListener('click',() =>{
     credentials: 'include',
     body: JSON.stringify( getThumb(document.querySelectorAll('.product-thumb'))),
   }).then((res) => res.json())
-  .then((res) => window.location.href = res.url)
-  .catch(err => showAlert("Error")); })
+  .then((res) =>{loader.style.display ="none"; window.location.href = res.url})
+  .catch(err =>{ loader.style.display ="none"; showAlert("Error")}); })
 
 fetch('/shoppingCart').then((res) => {
     if(res.status == 200){
@@ -242,7 +254,8 @@ fetch('/shoppingCart').then((res) => {
         })
     }
     else{
-        console.log("failed request")
+      loader.style.display = "none";
+        showAlert("failed request")
     }
-}).catch(err => showAlert("Error")); 
+}).catch(err => { loader.style.display = "none"; showAlert("Error")}); 
 

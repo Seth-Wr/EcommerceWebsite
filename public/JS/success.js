@@ -1,4 +1,4 @@
-
+const loader = document.querySelector(".loader-container")
 
 function showAlert(msg){
     let alertBox = document.querySelector('.alert-box');

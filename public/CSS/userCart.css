@@ -17,6 +17,7 @@ body{
 }
 .product-thumb{
     height: 130px;
+    object-fit: scale-down;
     
 }
 .items-text{

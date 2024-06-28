@@ -1,5 +1,5 @@
 const productImages = document.querySelectorAll(".product-images img")
-const productImageSlide = document.querySelector(".image-slider");
+const productImageSlide = document.querySelector(".image-slider-img");
 const description =  document.querySelector(".des")
 const brand = document.querySelector(".product-brand")
 const sale_price = document.querySelector(".product-price")
@@ -52,11 +52,13 @@ const processData = (data) =>{
     productImages[0].classList.add('active')
     imgIds.push(data.img1id,data.img2id,data.img3id,data.img4id)
     activeImgId = imgIds[0]
-    productImageSlide.style.backgroundImage = `url('${data.img1idurl}')`;
+    productImageSlide.src = data.img1idurl;
     if(data.sold_out == true){
         document.querySelector(".sold_out_text").classList.add("sold_out")
         sold_out_Btn.value = `false`
         sold_out_Btn.innerHTML = `Restock`
+    }else{
+        document.querySelector(".sold_out_text").style.display = "none"
     }
     if (data.sale_price == null || data.sale_price == 0){
         sale_price.textContent = data.price
@@ -178,7 +180,7 @@ const processData = (data) =>{
 const imageSlide = (item,i) => {
         productImages[activeImageSlide].classList.remove('active');
         item.classList.add('active');
-        productImageSlide.style.backgroundImage = `url('${item.src}')`;
+        productImageSlide.src = productImages[i].src;
         activeImageSlide = i;
         activeImgId = imgIds[i]
 }
@@ -206,13 +208,13 @@ const previewPhoto = () => {
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
-                    canvas.height = 500 //e.target.height * ratio;
+                    canvas.height = e.target.height * ratio;
                     const context = canvas.getContext("2d");
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
                         new_Blob = blob;
                         const url = URL.createObjectURL(blob);
-                        productImageSlide.style.backgroundImage = `url('${url}')`;
+                        productImageSlide.src = url;
                         submitBtns.innerHTML = `
                         <button class ="submitBtn">Confirm Change Photo</button>
                         <br>
@@ -234,10 +236,12 @@ const previewPhoto = () => {
                             
                         })
                         cancelBtn.addEventListener('click', () =>{
-                            productImageSlide.style.backgroundImage = `url('${document.querySelector(".active").src}')`
+                            productImageSlide.src = document.querySelector(".active").src
                             imgEventListeners();
                             submitBtn.remove();
                             cancelBtn.remove();
+                        
+                            editImgBtn.value = "";
                         })
                     for(i=0;i<imgEventInstance.length;i++){
                         productImages[i].removeEventListener('click',imgEventInstance[i])

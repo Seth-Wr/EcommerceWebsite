@@ -49,6 +49,7 @@ body{
     width: 180px;
 }
 .product-thumb{
+    object-fit: scale-down;
     height: 130px;
     padding: 3%;
 }

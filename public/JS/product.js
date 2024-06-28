@@ -1,5 +1,5 @@
 const productImages = document.querySelectorAll(".product-images img")
-const productImageSlide = document.querySelector(".image-slider");
+const productImageSlide = document.querySelector(".image-slider-img");
 const description =  document.querySelector(".des")
 const brand = document.querySelector(".product-brand")
 const sale_price = document.querySelector(".product-price")
@@ -34,7 +34,7 @@ const processData = (data) =>{
     productImages[1].src = data.img2idurl;
     productImages[2].src = data.img3idurl;
     productImages[3].src = data.img4idurl;
-    productImageSlide.style.backgroundImage = `url('${data.img1idurl}')`;
+    productImageSlide.src = data.img1idurl;
     if (data.sale_price == null || data.sale_price == 0){
         sale_price.textContent = data.price
     }
@@ -50,7 +50,7 @@ productImages.forEach((item, i) =>{
     item.addEventListener('click', () => {
         productImages[activeImageSlide].classList.remove('active');
         item.classList.add('active');
-        productImageSlide.style.backgroundImage = `url('${item.src}')`;
+        productImageSlide.src = item.src;
         activeImageSlide = i;
     }) 
 

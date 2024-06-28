@@ -13,7 +13,7 @@ let new_Blob2;
 let new_Blob3;
 let new_Blob4;
 const productImages = document.querySelectorAll(".product-images img")
-const productImageSlide = document.querySelector(".image-slider");
+const productImageSlide = document.querySelector(".image-slider-img");
 let activeImageSlide = 0;
 const loader = document.querySelector(".loader-container")
 function showAlert(msg){
@@ -41,23 +41,23 @@ const previewPhoto = () => {
                 previewImg.onload = (e) => {
                    
                     const canvas = document.createElement("canvas")
-                    const ratio = WIDTH /e.target.width;
+                    const ratio = WIDTH / e.target.width;
                     canvas.width = WIDTH;
-                    canvas.height = 500 //e.target.height * ratio;
+                    canvas.height = e.target.height * ratio;
                     const context = canvas.getContext("2d");
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
                         new_Blob = blob;
                         const url = URL.createObjectURL(blob);
                         img1.src = url;
-                        productImageSlide.style.backgroundImage = `url('${img1.src}')`;
+                        productImageSlide.src = url;
                         productImages[activeImageSlide].classList.remove('active');
                             img1.classList.add('active');
                             activeImageSlide = 0
                         img1.addEventListener("click", ()=>{
                             productImages[activeImageSlide].classList.remove('active');
                             img1.classList.add('active');
-                            productImageSlide.style.backgroundImage = `url('${img1.src}')`;
+                            productImageSlide.src = url;
                             activeImageSlide = 0;
                         })
                         
@@ -78,7 +78,7 @@ const previewPhoto2 = () => {
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
-                    canvas.height = 500 //e.target.height * ratio;
+                    canvas.height = e.target.height * ratio;
                     const context = canvas.getContext("2d");
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
@@ -87,14 +87,14 @@ const previewPhoto2 = () => {
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
                         img2.src = url;
-                        productImageSlide.style.backgroundImage = `url('${img2.src}')`;
+                        productImageSlide.src = url;
                         productImages[activeImageSlide].classList.remove('active');
                             img2.classList.add('active');
                             activeImageSlide = 1
                         img2.addEventListener("click", ()=>{
                             productImages[activeImageSlide].classList.remove('active');
                             img2.classList.add('active');
-                            productImageSlide.style.backgroundImage = `url('${img2.src}')`;
+                            productImageSlide.src = url;
                             activeImageSlide = 1;
                         })
                         
@@ -114,7 +114,7 @@ const previewPhoto3 = () => {
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
-                    canvas.height = 500 //e.target.height * ratio;
+                    canvas.height = e.target.height * ratio;
                     const context = canvas.getContext("2d");
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
@@ -123,14 +123,14 @@ const previewPhoto3 = () => {
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
                         img3.src = url;
-                        productImageSlide.style.backgroundImage = `url('${img3.src}')`;
+                        productImageSlide.src = url;
                         productImages[activeImageSlide].classList.remove('active');
                             img3.classList.add('active');
                             activeImageSlide = 2
                         img3.addEventListener("click", ()=>{
                             productImages[activeImageSlide].classList.remove('active');
                             img3.classList.add('active');
-                            productImageSlide.style.backgroundImage = `url('${img3.src}')`;
+                            productImageSlide.src = url;
                             activeImageSlide = 2;
                         })
                         
@@ -151,7 +151,7 @@ const previewPhoto4 = () => {
                     const canvas = document.createElement("canvas")
                     const ratio = WIDTH /e.target.width;
                     canvas.width = WIDTH;
-                    canvas.height = 500 //e.target.height * ratio;
+                    canvas.height = e.target.height * ratio;
                     const context = canvas.getContext("2d");
                     context.drawImage(previewImg, 0,0, canvas.width, canvas.height);
                     context.canvas.toBlob((blob) => {
@@ -160,14 +160,14 @@ const previewPhoto4 = () => {
                         new_Img.setAttribute("id", "newImg");
                         const url = URL.createObjectURL(blob);
                         img4.src = url;
-                        productImageSlide.style.backgroundImage = `url('${img4.src}')`;
+                        productImageSlide.src = url;
                         productImages[activeImageSlide].classList.remove('active');
                             img4.classList.add('active');
                             activeImageSlide = 3
                         img4.addEventListener("click", ()=>{
                             productImages[activeImageSlide].classList.remove('active');
                             img4.classList.add('active');
-                            productImageSlide.style.backgroundImage = `url('${img4.src}')`;
+                            productImageSlide.src = url;
                             activeImageSlide = 3;
                         })
                         

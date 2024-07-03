@@ -25,7 +25,6 @@ nav.innerHTML = `
                 <li><a href="search.html?Category=full_sets">Sets</a></li>
                 <li><a href="search.html?Category=tops">Tops</a></li>
                 <li><a href="search.html?Category=bottoms">Bottoms</a></li>
-                <li><a href="search.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
                 <li id="logout"></li>
                 <li id="login"></li>
                 

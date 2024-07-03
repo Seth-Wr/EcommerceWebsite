@@ -8,6 +8,7 @@ const crypto = require('crypto')
 const session = require('express-session');
 
 // routes
+const homepage_Route = require('./routes/homepage')
 const checkout_Route = require('./routes/create-checkout-session')
 const product_Page_Route = require("./routes/product_page")
 const all_Products_Route = require("./routes/allproducts")
@@ -143,6 +144,7 @@ app.use('/sellersOrders', authSeller,sellersOrders_Route)
 app.use('/shipOrder',authSeller, shipOrder_Route)
 app.use('/getShoppingCartQty',getShoppingCartQty_Route)
 app.use('/deleteCart', deleteCart_Route)
+app.use('/homepage', homepage_Route)
 
 
 
@@ -150,8 +152,8 @@ app.use('/deleteCart', deleteCart_Route)
 app.listen(3000, () => {
     console.log('listening on port 3000');})
 
-    setInterval_Payment()
-    setInterval_Fraud()
+setInterval_Payment()
+setInterval_Fraud()
 
 app.get('/404', (req, res) => {    res.sendFile(path.join(staticPath, "404.html"));
 })

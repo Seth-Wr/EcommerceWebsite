@@ -30,15 +30,18 @@
     font-weight: 500;
 } 
 footer{
+  position: relative;
+  bottom: -18px;
     margin-top: auto;
 }
 
 .footer-content{
+   
     position: relative;
   width: 100%;
   height: 40px;
  
-  background-color: #d3d3d3;  
+  background-color: white;  
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   
 }

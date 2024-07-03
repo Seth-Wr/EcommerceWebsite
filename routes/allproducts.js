@@ -13,7 +13,7 @@ router.get('/',authSeller, async(req, res) =>{
     try {
         const productList = new Array;
         const query = new Promise((resolve, reject) => {
-            let insertQuery = `select * from products`
+            let insertQuery = `select * from products ORDER BY id desc`
             pool.query(insertQuery, (err, response) =>{
                 if(!err){
                     resolve(response)
@@ -34,7 +34,7 @@ router.get('/',authSeller, async(req, res) =>{
                 }
                     const command = new GetObjectCommand(getObjectParams);
                    const productUrl = await getSignedUrl(s3, command,{ expiresIn: 3600});
-                   const product = new ProductCard(data.rows[i].imgid,productUrl,data.rows[i].description,data.rows[i].brand,data.rows[i].price,data.rows[i].category,data.rows[i].sold_out);
+                   const product = new ProductCard(data.rows[i].imgid,productUrl,data.rows[i].short_description,data.rows[i].brand,data.rows[i].price,data.rows[i].category,data.rows[i].sold_out);
                    
                    productList.push(product)
                   

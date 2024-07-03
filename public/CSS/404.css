@@ -1,14 +1,21 @@
 @import 'nav.css';
 @import 'footer.css';
-/*.four-0-four-image{
-    display: block;
-    margin: 20px auto;
-}
 
+
+span{
+    font-size: 25vw;
+    font-weight: 404;
+    display: flex;
+    justify-content: center;
+}
 .four-0-four-msg{
+
+    margin: 30px auto;
     text-align: center;
     text-transform: capitalize;
     color: #383838;
+    font-size: large;
+
 }
 .four-0-four-msg a{
     color: #383838;

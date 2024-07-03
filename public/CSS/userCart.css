@@ -78,8 +78,8 @@ background-color:  cornsilk;
     position: absolute;
     top: 40%;
     left: 0;
-    background-image: linear-gradient(to right, green,gold,red);
-
+    background-color: orchid;
+    color: white;
      height: 20%;
      width: 100%;
      margin-top: 7%;
@@ -87,6 +87,7 @@ background-color:  cornsilk;
 }
 #checkout-btn:hover{
     background-color: antiquewhite;
+    color: purple;
 }
 .total-price{
     position: absolute;
@@ -128,7 +129,7 @@ background-color:  cornsilk;
     #checkout-btn{
         position: static;
         
-        background-image: linear-gradient(to right, green,gold,red);
+     
          height: 50px;
          width: 50%;
          margin-top: 7%;
@@ -227,7 +228,7 @@ background-color:  cornsilk;
     #checkout-btn{
         position: static;
         
-         background-color: pink;
+        
          height: 30px;
          width: 100%;
          margin-top: 10px;

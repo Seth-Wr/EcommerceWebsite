@@ -115,12 +115,14 @@ addToCartBtn.addEventListener('click', () => {
             body: JSON.stringify(size)
     
            }).then((res) => res.json()).then((res) => {
-           
+           //add qty to the top navbar
             document.querySelector(".badge").textContent = res.totalQty;
+            document.querySelector(".mobile_qty").textContent = res.totalQty
             loader.style.display = 'none';
         }).catch(err => {  loader.style.display = 'none'; showAlert('Failed to add to cart')});  
     }
     else{
+        //if no size is chosen by seller it uses this option
         const size = {size: "NA"}
         fetch('/addToCart'+myKeysValues,{
             method: 'put',
@@ -130,6 +132,7 @@ addToCartBtn.addEventListener('click', () => {
            }).then((res) => res.json()).then((res) => {
            
             document.querySelector(".badge").textContent = res.totalQty;
+            document.querySelector(".mobile_qty").textContent = res.totalQty
             loader.style.display = 'none';
         }).catch(err =>  { loader.style.display = 'none'; showAlert('Failed to add to cart')}); 
     }

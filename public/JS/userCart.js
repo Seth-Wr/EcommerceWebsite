@@ -78,6 +78,7 @@ const proccessData = (data) =>{
               document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice
               document.querySelectorAll(".qtyInput")[i].value ++;
               document.querySelector(".badge").textContent ++;
+              document.querySelector(".mobile_qty").textContent ++;
               document.querySelector(".totalItems").textContent ++;
               document.querySelector('.total-price').textContent = newTotalPrice
               loader.style.display ="none";
@@ -105,6 +106,7 @@ const proccessData = (data) =>{
               document.querySelectorAll('.price')[i].childNodes[3].textContent = newPrice
               document.querySelectorAll(".qtyInput")[i].value --;
               document.querySelector(".badge").textContent --;
+              document.querySelector(".mobile_qty").textContent  --;
               document.querySelector(".totalItems").textContent --;
               document.querySelector('.total-price').textContent = newTotalPrice
               loader.style.display ="none";
@@ -163,6 +165,7 @@ const proccessData = (data) =>{
                 res.json().then((res) =>{
                   document.querySelectorAll('.price')[i].childNodes[3].textContent = res.itemPrice
                   document.querySelector(".badge").textContent = res.totalQty;
+                  document.querySelector(".mobile_qty").textContent = res.totalQty;
                   document.querySelector(".totalItems").textContent = res.totalQty;
                   document.querySelector('.total-price').textContent = res.totalPrice      
                   loader.style.display ="none";  

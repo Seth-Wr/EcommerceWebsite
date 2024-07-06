@@ -6,8 +6,13 @@ const createNav = () => {
 nav.innerHTML = `
     
         <div class="nav-items">
-        <a class="mobile-home" href="/index.html">Propa Tingz</a>
-            
+        <a class="mobile-home" href="/index.html">Propa Tings</a>
+            <div class="shoppingcart_img_box">
+            <a href="/userCart" class="shoppingcart_a">
+                <img src="../img/shoppingcart.jpg" alt"">
+                </a>
+                <span class="mobile_qty"></span>
+                </div>
         <div class="ham-menu">
         <span></span>
         <span></span>
@@ -91,7 +96,9 @@ fetch('/getUserSession').then((res) =>  {
     
     res.json().then((res) =>{
         if(res.totalQty){
+            //adding qty to navbar
             document.querySelector(".badge").textContent = res.totalQty;
+            document.querySelector(".mobile_qty").textContent = res.totalQty;
             
         }
         if(document.querySelector(".total-price") && res.totalPrice){
@@ -111,10 +118,12 @@ fetch('/getUserSession').then((res) =>  {
    const reloadPage = () => {
 	window.onpageshow = function(event) {
 		if (event.persisted) {
+            // updating nav bar data for shopping cart
 			fetch('/getShoppingCartQty').then((res) =>{
                 if(res.status == 200){
                     res.json().then((res) => {
                         document.querySelector(".badge").textContent = res.qty
+                        document.querySelector(".mobile_qty").textContent = res.totalQty;
                     })
                 }else{
                     return

@@ -17,7 +17,8 @@ body{
 .file-input{
     margin-top: 30px;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    overflow: hidden;
 }
 .form-content{
     
@@ -50,6 +51,7 @@ body{
 }
 #picture,#picture2,#picture3,#picture4{
     margin-bottom: 5px;
+    overflow: hidden;
 }
 .product-images{
     position: absolute;

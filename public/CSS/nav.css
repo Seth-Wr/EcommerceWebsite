@@ -38,7 +38,18 @@ nav{
         display: none;
         overflow: hidden;
         width: 100%;
+     
+
     }
+    .shoppingcart_img_box{
+        display: none;
+        position: fixed;
+        top: 1px;
+        left: 5px;
+        height: 45px;
+        width: 45px;
+    }
+
     
     .links-container{
         display: flex;
@@ -100,6 +111,25 @@ nav{
             padding: 0;
             
         }
+        .shoppingcart_img_box{
+            display: block;
+        }
+        .mobile_qty{
+            position: fixed;
+            top: 6px;
+            left: 55px;
+            font-size: 30px;
+            font-family:  "sans-serif";
+            text-decoration: orchid dotted underline;
+
+
+        }
+        .shoppingcart_a img{
+            height: 45px;
+            width: 45px;
+            object-fit: contain;
+        }
+
         .ham-menu{
             height: 50px;
             width: 50px;
